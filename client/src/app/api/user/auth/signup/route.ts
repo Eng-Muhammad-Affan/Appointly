@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { auth } from "@/lib/auth";
 import type z from "zod";
-import type { UserSignupFormSchema } from "@/app/(user)/(Auth)/signup-user/_validations";
+import type { UserSignupFormSchema } from "@/app/(user-auth)/signup-user/_validations";
 
 export const POST = async (req: NextRequest) => {
   const body: z.infer<typeof UserSignupFormSchema> = await req.json();

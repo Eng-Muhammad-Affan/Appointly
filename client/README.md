@@ -116,7 +116,7 @@ service_id:string;
 - User can be able to view reschedule requests . 
 - User can be able to accept or reject the appointment reschedule request .
 
-shakirali@gmail.com (alpHA23@)
+affanamir903@gmail.com (alpHA23@)
 
 ```bash
 docker exec -i postgres psql -U affan -d appointly < reschedule_requests.sql

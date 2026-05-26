@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+
+  /* Color Palette - Appointly High-Trust Marketplace */
+  --color-primary: #000000;
+  --color-secondary: #F6A7C1;
+  --color-secondary-dark: #8a4b62;
+  --color-secondary-container: #fdadc7;
+  --color-tertiary: #FFF9E6;
+  --color-accent: #92E889;
+  --color-muted: #9B6B9E;
+
+  /* Surfaces & Containers */
+  --color-surface: #f9f9f9;
+  --color-surface-dim: #dadada;
+  --color-surface-bright: #f9f9f9;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f3f3;
+  --color-surface-container: #eeeeee;
+  --color-surface-container-high: #e8e8e8;
+  --color-surface-container-highest: #e2e2e2;
+
+  /* On Colors & Boundaries */
+  --color-on-surface: #1b1b1b;
+  --color-on-surface-variant: #4c4546;
+  --color-outline: #7e7576;
+  --color-outline-variant: #cfc4c5;
+
+  /* Corner Radii */
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-input: 8px;
+  --radius-modal: 16px;
+  --radius-badge: 20px;
+}
+
+/* Base resets */
+body {
+  background-color: var(--color-tertiary);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Typography Utilities */
+@layer components {
+  .text-h1 {
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  .text-h2 {
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+  .text-h3 {
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .text-h4 {
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .text-body-base {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .text-body-small {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .text-caption {
+    font-size: 12px;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+  }
+  .text-label-bold {
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+  }
+
+  /* Custom Components */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+  }
+  
+  .card-shadow {
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.06);
+  }
+  
+  .modal-shadow {
+    box-shadow: 0px 8px 32px rgba(0,0,0,0.15);
+  }
+  
+  .hover-card-transition {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .hover-card-transition:hover {
+    box-shadow: 0px 4px 16px rgba(0,0,0,0.10);
+    transform: translateY(-2px);
+    border-color: var(--color-secondary);
+  }
+}
+
+@layer utilities {
+  .active-dot {
+    position: relative;
+  }
+  .active-dot::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+  }
+}

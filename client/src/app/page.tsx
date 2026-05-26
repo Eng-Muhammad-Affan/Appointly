@@ -1,16 +1,11 @@
-import CTA from "./_components/cta";
-import Banner from "./_components/banner";
-import Features from "./_components/features";
-import Testimonials from "./_components/testimonials";
-import Working from "./_components/working";
-
+import {CTA ,Hero ,Features ,Testimonials ,HowItWorks} from "@/features/home";
 const Home = () => {
   return (
     <main>
       <article>
-        <Banner />
+        <Hero />
         <Features />
-        <Working />
+        <HowItWorks />
         <Testimonials />
         <CTA />
       </article>

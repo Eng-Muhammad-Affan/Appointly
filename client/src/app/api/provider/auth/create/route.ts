@@ -4,7 +4,7 @@ import type { NextRequest } from "next/server";
 import type { z } from "zod";
 import { auth } from "@/lib/auth";
 
-import { ProviderSignupAPIRequestSchema } from "@/app/(provider)/(Auth)/create-account/_validations";
+import { ProviderSignupAPIRequestSchema } from "@/app/(provider-auth)/create-account/_validations";
 import { PaymentService } from "@/shared/services";
 
 const validate = async (

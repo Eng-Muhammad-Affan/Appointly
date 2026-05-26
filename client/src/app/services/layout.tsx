@@ -1,4 +1,4 @@
-import { FetchServices } from "./_components/FetchServices";
+import { FetchServices } from "@/features/services-listing";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

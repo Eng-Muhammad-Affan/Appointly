@@ -132,3 +132,13 @@ Service details should also show the ratings of service .- It also show 1st 2 or
 - 404 not found page .
 - All the above pages , each consisting of three screens , mobile , desktop and tablet .
 - All the screens should be aligned with the theme and vibe . Make sure nothing is incomplete .
+
+
+
+
+-----------------
+
+
+now please help me to identify the empty and vague instructions in this prompt that can cause the AI agents to hallucinate and when fixed ai should create complete application frontend completely . 
+
+also you are allowed to point out any missing feature that can cause this application to be incomplete .

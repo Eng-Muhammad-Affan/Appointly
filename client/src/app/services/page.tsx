@@ -1,15 +1,15 @@
 "use client";
 // ____ Hooks ...
-import { useServiceFilter } from "./_hooks/use-service-filter";
+import {useServiceFilter , Catalog} from "@/features/services-listing";
 
 // ____ Components and constants ...
 import { serviceCategories } from "@/shared/constants";
 import { Input } from "@/components/common";
-import { Catalog } from "./_components/Catalog";
 
 const ServicesPage = () => {
   const { searchTerm, setSearchTerm, activeCategory, setActiveCategory } =
     useServiceFilter();
+
   return (
     <main>
       <article>
