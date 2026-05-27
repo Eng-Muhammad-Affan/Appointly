@@ -17,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={"antialiased selection:bg-pink/90 selection:text-black"}>
         <Header />
+        <div className="md:h-[80px]"></div>
         <Toaster position="top-right" />
         {children}
         <Footer />

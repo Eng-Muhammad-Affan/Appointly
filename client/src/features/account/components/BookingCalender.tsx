@@ -1,14 +1,14 @@
 "use client";
 // _____ Hooks and Actions ....
 import { useEffect, useMemo, useState } from "react";
-import { useSlotReschedule } from "../_hooks/use-reschedule-slot";
+import { useSlotReschedule } from "../hooks/use-reschedule-slot";
 
 // _____ Libraries and utils  ....
 import dayjs from "@/lib/dayjs";
 import { formatDate } from "@/shared/utils/format-date";
 
 // _____ Types and schemas ....
-import type { AppointmentProfile } from "../_types";
+import type { AppointmentProfile } from "../types";
 
 // _____ Components ....
 import { Calendar } from "@/components/ui/calendar";

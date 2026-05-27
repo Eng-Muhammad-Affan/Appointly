@@ -8,10 +8,11 @@ export const POST = async (req: NextRequest) => {
   const { email, password }: z.infer<typeof LoginFormSchema> = await req.json();
 
   try {
-    await auth.api.signInEmail({
+    const res = await auth.api.signInEmail({
       body: { email, password },
     });
 
+    console.log("Logged in successfully : ", res)
     return NextResponse.json(
       {
         message: "Login successfull",

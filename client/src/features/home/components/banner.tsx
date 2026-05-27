@@ -20,7 +20,7 @@ export function Hero() {
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold text-black leading-tight">
                 Book & Manage
-                <span className="block text-[#e189fa]">Appointments</span>
+                <span className="block text-pink">Appointments</span>
                 <span className="block">Effortlessly</span>
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed max-w-lg max-sm:text-sm">
@@ -51,7 +51,7 @@ export function Hero() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="flex flex-row flex-nowrap justify-center items-center gap-[10px] bg-[#e189fa] hover:bg-[#d175f0] text-black px-8 py-3 text-lg">
+              <Button className="flex flex-row flex-nowrap justify-center items-center gap-[10px] bg-pink hover:shadow-xl hover:shadow-gray-400 text-black px-8 py-3 text-lg">
                 <Users className="h-5 w-5 mr-2" />
                 <span>For Clients</span>
                 <ArrowRight className="h-5 w-5 ml-2" />

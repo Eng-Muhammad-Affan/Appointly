@@ -10,33 +10,37 @@ import { LoginFormSchema } from "@shared/validations";
 import { toast } from "sonner";
 import axios from "axios";
 import { authClient } from "@/lib/auth-client";
+import { useEffect, useState } from "react";
 
 export const useLoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitted },
   } = useForm({
     resolver: zodResolver(LoginFormSchema),
     mode: "onChange",
   });
-
   const router = useRouter();
+
+  const [rememberMe , setRememberMe] = useState(false)
 
   const login = handleSubmit(
     async ({ email, password }: z.infer<typeof LoginFormSchema>) => {
-      try {
         const { data, error } = await authClient.signIn.email({ email, password, callbackURL: "/account", rememberMe: true })
-        // const { data } = await axios.post("/api/user/auth/login", formData);
-        // const { message } = data;
+
+        if(error) {
+          toast.error(error.message)
+        }
+        else {
         toast.success("Login successfull !");
         router.push("/account");
         await authClient.getSession()
-      } catch (err) {
-        console.log(JSON.stringify(err));
-      }
+        }
     },
   );
+
+
 
   const loginWithGoogle = async () => {
     const { data, error } = await authClient.signIn.social({
@@ -60,5 +64,8 @@ export const useLoginForm = () => {
     login,
     errors,
     isSubmitting,
+    isSubmitted,
+    rememberMe ,
+    setRememberMe
   };
 };

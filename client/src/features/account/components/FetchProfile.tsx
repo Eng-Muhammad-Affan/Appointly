@@ -1,7 +1,7 @@
 "use client";
 // ____ Hooks ...
 import { useEffect } from "react";
-import { useProfile } from "../_hooks/use-profile";
+import { useProfile } from "../hooks/use-profile";
 
 // ____ Libraries...
 import { authClient } from "@/lib/auth-client";
@@ -34,5 +34,5 @@ export const FetchUserProfileData = ({
       getData(data.user.email);
     }
   }, [data, setAppointments]);
-  return <>{children}</>;
+  return children;
 };

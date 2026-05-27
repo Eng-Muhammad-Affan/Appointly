@@ -60,7 +60,7 @@ export default function SignupPage() {
               <img
                 alt="Appointly community scheduling flat vector illustration"
                 className="w-[380px] h-auto object-contain transform hover:scale-[1.01] transition-transform duration-500"
-                src="https://lh3.googleusercontent.com/aida/ADBb0ujqg8ttkv0UaIUTrhNggUOmWiG927u56TPKVWCNk6Xp_MPGRjTjkOUrZW0ihcNxo8jvC4osG9A5iQYA3aiBJYGkLc-5ZQJH50NCGS2e8NaNqdgqsyuRg37LfdIh3gAVDSp3wROtMVBKWMYWytejLQD25TUEN0Au2V2BxgJD2va5vQuC7WJ0lEpHCbsz1LRD-k8v9F36sKhEZTd9UTNsiKZhjsLvI5te8LIvqt_-FuHttOAYH9FVTRE_W1jN"
+                src="/signup-user-illustration.png"
               />
             </div>
 

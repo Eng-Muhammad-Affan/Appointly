@@ -1,8 +1,8 @@
 "use client";
 import { useMemo } from "react";
-import { useProfile } from "../_hooks/use-profile";
+import { useProfile } from "../hooks/use-profile";
 import { AppointmentCard } from "./Card";
-import { useTab } from "../_hooks/use-tab";
+import { useTab } from "../hooks/use-tab";
 
 export function AppointmentsList() {
   // ____ Apointments fetched ...

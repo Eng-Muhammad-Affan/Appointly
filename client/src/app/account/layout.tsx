@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FetchUserProfileData } from "@/features/account";
+import SideBar from "./Sidebar";
 
 export const metadata: Metadata = {
   title: "Appointly | Manage Account",
@@ -11,5 +12,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <FetchUserProfileData>{children}</FetchUserProfileData>;
+  return (
+    <FetchUserProfileData>
+    <div className="flex max-w-[1440px] mx-auto min-h-[calc(100vh-64px)]">
+      <SideBar />
+      <main className="flex-1 px-4 md:p-8 bg-transparent">
+        {children}
+      </main>
+    </div>
+    </FetchUserProfileData>
+  );
 }

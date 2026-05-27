@@ -19,10 +19,10 @@ import axios from "axios";
 import { toast } from "sonner";
 
 // ____ Types ...
-import type { AppointmentProfile } from "../_types";
-import { useSlotReschedule } from "../_hooks/use-reschedule-slot";
+import type { AppointmentProfile } from "../types";
+import { useSlotReschedule } from "../hooks/use-reschedule-slot";
 import { useEffect } from "react";
-import { useProfile } from "../_hooks/use-profile";
+import { useProfile } from "../hooks/use-profile";
 
 export const RescheduleButton = ({
   appointment,

@@ -1,6 +1,6 @@
 "use client";
 import { useMemo } from "react";
-import type { AppointmentProfile } from "../_types";
+import type { AppointmentProfile } from "../types";
 import dayjs from "dayjs";
 import { RescheduleButton } from "./RescheduleButton";
 import { formatDate } from "@/shared/utils/format-date";
