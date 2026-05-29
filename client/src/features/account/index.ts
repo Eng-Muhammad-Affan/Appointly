@@ -8,3 +8,5 @@ export * from "./components/CancelButton"
 export * from "./components/Card"
 export * from "./components/FetchProfile"
 export * from "./components/RescheduleButton"
+
+export * from "./types"

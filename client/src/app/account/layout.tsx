@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <FetchUserProfileData>
-    <div className="flex max-w-[1440px] mx-auto min-h-[calc(100vh-64px)]">
+    <div className="flex max-w-[1440px]">
       <SideBar />
       <main className="flex-1 px-4 md:p-8 bg-transparent">
         {children}
