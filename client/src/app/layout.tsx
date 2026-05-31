@@ -15,9 +15,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={"antialiased selection:bg-pink/90 selection:text-black"}>
+      <body className={"antialiased selection:bg-pink selection:text-black"}>
         <Header />
-        <div className="md:h-[80px]"></div>
         <Toaster position="top-right" />
         {children}
         <Footer />

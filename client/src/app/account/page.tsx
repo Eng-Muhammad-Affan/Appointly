@@ -87,15 +87,14 @@ export default function AppointmentsPage() {
   const upcomingAppointments = appointments.filter(apt => apt.status !== 'cancelled' && apt.status !== 'completed');
   
   return (
-    <>
-      <header className="mb-8">
+    <div className='h-screen overflow-y-scroll w-full p-5 sm:p-10'>
+        <header className="my-10">
         <h1 className="text-3xl font-bold text-primary">Upcoming Appointments</h1>
         <p className="text-base text-on-surface-variant mt-1">
           You have {upcomingAppointments.length} appointment{upcomingAppointments.length !== 1 ? 's' : ''} scheduled for the upcoming weeks.
         </p>
       </header>
-      
-      <div className="flex flex-col gap-6">
+      <main className="flex flex-col gap-6">
         {appointments.map((appointment) => {
           const status = statusConfig[appointment.status];
           
@@ -209,7 +208,7 @@ export default function AppointmentsPage() {
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 }

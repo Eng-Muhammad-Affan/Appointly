@@ -15,7 +15,7 @@ const SideBar = () => {
   ];
 
   return (
-    <aside className="w-[280px] hidden md:flex flex-col bg-surface-container-lowest border-r border-outline-variant/10 p-6 sticky top-[64px] h-[calc(100vh-64px)]">
+    <aside className="w-[280px] hidden md:flex flex-col bg-surface-container-lowest border-r border-outline-variant/10 p-6 sticky h-screen">
       {/* User Profile Header */}
       <div className="flex flex-col items-center mb-8 text-center">
         <div className="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center text-black text-2xl font-bold mb-4 border-2 border-white shadow-sm">
