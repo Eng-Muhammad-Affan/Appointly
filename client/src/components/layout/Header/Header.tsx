@@ -65,7 +65,7 @@ const Header = () => {
             onClick={() => setNavStatus(true)}
           />
         )}
-        <span>Appointly</span>
+        <Link href={"/"}>Appointly</Link>
       </div>
 
       {/* Desktop Navigation */}

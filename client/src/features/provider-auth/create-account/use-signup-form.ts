@@ -14,20 +14,6 @@ import { toast } from "sonner";
 import { ProviderSignupAPIRequestSchema } from "./validations";
 import { authClient } from "@/lib/auth-client";
 
-// _____ Function for signup post request ...
-const signup = async (
-  formData: z.infer<typeof ProviderSignupAPIRequestSchema>,
-) => {
-  const { data, status } = await axios.post(
-    "/api/provider/auth/create",
-    formData,
-  );
-  if (status !== 302) {
-    toast.error(data.message);
-  }
-  authClient.getSession();
-};
-
 export const useSignupForm = () => {
   const {
     register,
@@ -37,6 +23,22 @@ export const useSignupForm = () => {
     resolver: zodResolver(ProviderSignupAPIRequestSchema),
     mode: "onChange",
   });
+
+  // _____ Function for signup post request ...
+const signup = async (
+  formData: z.infer<typeof ProviderSignupAPIRequestSchema>,
+) => {
+  const { data } = await axios.post(
+    "/api/provider/auth/create",
+    formData,
+  );
+  if (!data.url) {
+    toast.error(data.message);
+  }
+  window.document.location.href = data.url  
+  authClient.getSession();
+};
+
 
   const signupReq = handleSubmit(signup);
 

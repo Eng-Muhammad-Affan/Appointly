@@ -2,7 +2,7 @@
 
 // _____ Hooks ...
 import { useEffect, useMemo } from "react";
-import { useDashboard } from "../dashboard/_hooks/use-dashboard";
+import { useDashboard } from "@/features/dashboard";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 

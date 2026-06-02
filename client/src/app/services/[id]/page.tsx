@@ -1,17 +1,18 @@
-import {ServiceDetailsPage} from "@/features/service-details"
+"use client"
 import { 
   ChevronRight, 
   Star, 
   CheckCircle, 
   ChevronLeft,
-  Calendar,
-  Clock,
   TrendingDown
 } from 'lucide-react';
 
+import {Calendar} from "./Calender"
+
 const ServiceDetails = () => {
+
   return (
-    <main className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+    <main className="max-w-7xl mx-auto px-4 md:px-8 py-15">
   {/* Breadcrumb */}
   <nav className="flex items-center gap-2 mb-6 text-sm text-outline">
     <span>Services</span>
@@ -146,50 +147,9 @@ const ServiceDetails = () => {
     {/* Right Column: Booking Panel */}
     <aside className="sticky top-[88px] bg-surface-container-lowest p-6 rounded-xl shadow-lg border border-outline-variant/10">
       <h3 className="text-xl font-bold mb-6">Book This Service</h3>
-      
       {/* Calendar Component */}
-      <div className="mb-6">
-        <div className="flex justify-between items-center mb-4">
-          <span className="font-semibold">October 2026</span>
-          <div className="flex gap-2">
-            <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
-              <ChevronLeft size={20} />
-            </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
-              <ChevronRight size={20} />
-            </button>
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-7 text-center text-xs font-semibold text-outline mb-2">
-          <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
-        </div>
-        
-        <div className="grid grid-cols-7 gap-1 text-center text-sm">
-          {/* Days */}
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg text-outline">27</button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg text-outline">28</button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg text-outline">29</button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg text-outline">30</button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high">1</button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high relative">
-            2
-            <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-accent rounded-full"></span>
-          </button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high">3</button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high">4</button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high">5</button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg bg-secondary/20 font-bold border border-secondary/30">6</button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high">7</button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high relative">
-            8
-            <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-accent rounded-full"></span>
-          </button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg bg-secondary text-black font-bold">9</button>
-          <button className="h-10 w-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high">10</button>
-        </div>
-      </div>
-      
+          <Calendar/>
+
       {/* Available Slots */}
       <div className="space-y-4 mb-8">
         <h4 className="text-base font-bold">Available Slots</h4>

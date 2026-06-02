@@ -1,3 +1,4 @@
+"use client"
 import type { ServiceData } from "@/shared/types";
 import { create } from "zustand";
 import { useDashboard } from "../../hooks/use-dashboard";

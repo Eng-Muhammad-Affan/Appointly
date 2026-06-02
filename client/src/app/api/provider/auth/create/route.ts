@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import type { z } from "zod";
 import { auth } from "@/lib/auth";
-
 import { ProviderSignupAPIRequestSchema } from "@/features/provider-auth/create-account";
 import { PaymentService } from "@/shared/services";
 
@@ -19,48 +18,31 @@ const validate = async (
 };
 
 export async function POST(req: NextRequest) {
-  console.log(
-    "--------------------  Running /api/create-account   -------------------",
-  );
-  // ____ Get the data and sanitize it ...
+  console.log("🚀 START - /api/provider/auth/create");
+
   const body = await req.json();
+  console.log("📦 Body received");
+
   const errors = await validate(body);
-
-  // ____ Return error messages if any ...
   if (errors) {
-    return NextResponse.json(
-      {
-        message: errors[0],
-      },
-      { status: 422 },
-    );
+    return NextResponse.json({ message: errors[0] }, { status: 422 });
   }
+  console.log("✅ Validation passed");
 
-  // ____ Instantiate payment service ...
+
+  console.log("💳 Creating PaymentService...");
   const payments = new PaymentService();
-  const accountResponse = await payments.CreateProviderAccount({
-    email: body.email,
-    country: body.country,
-  });
 
-  if (accountResponse.status !== 200) {
-    return NextResponse.json(
-      { message: accountResponse.message },
-      { status: accountResponse.status },
-    );
-  }
+  console.log("🏦 Creating Stripe account...");
+  const accountResponse = await payments.CreateProviderAccount({ 
+    country:body.country,
+    email:body.email
+   });
 
-  const { message, url } = await payments.GenerateOnboardingLink({
-    stripeAccountId: accountResponse.account_id as string,
-    baseUrl: req.url,
-  });
+  console.log("✅ Stripe account created:", accountResponse.account_id);
 
-  if (!url) {
-    return NextResponse.json({ message }, { status: 500 });
-  }
-
-  // _____ Create user account using better auth ...
-  await auth.api.signUpEmail({
+  console.log("👤 Creating auth user...");
+  const authResult = await auth.api.signUpEmail({
     body: {
       name: body.name,
       email: body.email,
@@ -69,7 +51,26 @@ export async function POST(req: NextRequest) {
       stripe_account_id: accountResponse.account_id,
     },
   });
+  console.log("✅ Auth user created:", authResult);
 
-  console.log("Redirected user to :", url);
-  return NextResponse.redirect(url, { status: 302 });
+  if (accountResponse.status !== 201) {
+    return NextResponse.json({ message: accountResponse.message }, { status: accountResponse.status });
+  }
+
+  console.log("🔗 Generating onboarding link...");
+  const { message, url } = await payments.GenerateOnboardingLink({
+    stripeAccountId: accountResponse.account_id as string,
+    baseUrl: req.url,
+  });
+  console.log("✅ Onboarding link generated, URL exists:", !!url);
+
+  if (!url) {
+    console.log("❌ No URL returned, message:", message);
+    return NextResponse.json({ message }, { status: 500 });
+  }
+
+  console.log("🔄 Redirecting to:", url);
+  return NextResponse.json({
+    url: url
+  });
 }
