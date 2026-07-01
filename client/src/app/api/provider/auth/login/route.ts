@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { LoginFormSchema } from "@shared/validations/login-schema";
+import { LoginFormSchema } from "@/validations/login-schema";
 
 export const POST = async (req: NextRequest) => {
   try {

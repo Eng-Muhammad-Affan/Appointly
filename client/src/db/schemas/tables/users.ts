@@ -14,6 +14,7 @@ export const user = pgTable("user", {
     .notNull(),
   role: text("role").default("USER").notNull(),
   stripe_account_id: text("stripe_account_id"),
+  currency: text("currency").notNull(),
 });
 
 export const session = pgTable(

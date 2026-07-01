@@ -1,0 +1,1 @@
+ALTER TABLE "user" ADD COLUMN "currencies" text[] DEFAULT '{}' NOT NULL;

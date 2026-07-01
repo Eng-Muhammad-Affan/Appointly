@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { FetchUserProfileData } from "@/features/account";
+import { FetchUserProfileData } from "../../../features/account";
 import SideBar from "./Sidebar";
 
 export const metadata: Metadata = {
@@ -14,12 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <FetchUserProfileData>
-    <div className="flex max-w-[1440px]">
-      <SideBar />
-      <main className="flex-1 bg-transparent">
-        {children}
-      </main>
-    </div>
+      <div className="flex max-w-[1440px]">
+        <SideBar />
+        <main className="flex-1 bg-transparent">{children}</main>
+      </div>
     </FetchUserProfileData>
   );
 }

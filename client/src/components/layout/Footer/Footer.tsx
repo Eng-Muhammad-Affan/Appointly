@@ -10,7 +10,6 @@ import {
   IconMapPin2,
   IconCalendarEvent,
 } from "@tabler/icons-react";
-import { Input } from "@/components/common";
 import { usePathname } from "next/navigation";
 import { pagesNotAllowed } from "@/shared/constants";
 
@@ -178,7 +177,7 @@ export function Footer() {
               </p>
             </div>
             <form className="flex space-x-3">
-              <Input
+              <input
                 type="email"
                 placeholder="Enter your email"
                 className="bg-gray-900 border-gray-700 text-white placeholder-gray-500"

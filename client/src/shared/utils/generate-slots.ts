@@ -33,11 +33,12 @@ export async function GenerateSlots<K extends keyof Appointment>(
 
   const allowedDays = working_days.map((d) => d.slice(0, 3).toLowerCase());
 
-  const today = dayjs().startOf("day");
+  const today = dayjs().startOf("day"); // 22 june
 
   for (let i = 0; i < daysAhead; i++) {
-    const date = today.add(i, "day");
-    const weekdayKey = date.format("ddd").toLowerCase();
+    //i=1
+    const date = today.add(i, "day"); // 22
+    const weekdayKey = date.format("ddd").toLowerCase(); // mon
 
     if (!allowedDays.includes(weekdayKey)) continue;
 

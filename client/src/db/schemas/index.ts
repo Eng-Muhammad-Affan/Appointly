@@ -1,5 +1,5 @@
-export * from "./relations/index";
-export * from "./tables/index";
+export * from "./tables";
+export * from "./relations";
 
 /* application has these core entities :
 - starting from user ... (Created automatically from better auth)

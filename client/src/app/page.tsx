@@ -1,4 +1,11 @@
-import {CTA ,Hero ,Features ,Testimonials ,HowItWorks} from "@/features/home";
+import {
+  CTA,
+  Hero,
+  Features,
+  Testimonials,
+  HowItWorks,
+} from "@/features/landing-page";
+
 const Home = () => {
   return (
     <main>

@@ -1,16 +1,17 @@
-const days = [
-  "MONDAY",
-  "TUESDAY",
-  "WEDNESDAY",
-  "THURSDAY",
-  "FRIDAY",
-  "SATURDAY",
-  "SUNDAY",
-];
+// const days = [
+//   "MONDAY",
+//   "TUESDAY",
+//   "WEDNESDAY",
+//   "THURSDAY",
+//   "FRIDAY",
+//   "SATURDAY",
+//   "SUNDAY",
+// ];
 const pagesNotAllowed = [
   "/dashboard",
   "/dashboard/appointments",
-  "/dashboard/reschedules",
+  "/dashboard/services",
+  "/dashboard/services/create",
   "/dashboard/schedule",
   "/add-service",
   "/book-appointment",
@@ -23,6 +24,27 @@ const pagesNotAllowed = [
 
 const TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-const serviceCategories = ["All", "Salon", "Hair cut", "Interview", "Clinic"];
+const serviceCategories = [
+  {
+    key: "All",
+    value: "All",
+  },
+  {
+    key: "Salon",
+    value: "Salon",
+  },
+  {
+    key: "Hair cut",
+    value: "Hair cut",
+  },
+  {
+    key: "Inetrview",
+    value: "Interview",
+  },
+  {
+    key: "Clinic",
+    value: "Clinic",
+  },
+];
 
-export { days, serviceCategories, pagesNotAllowed, TIMEZONE };
+export { serviceCategories, pagesNotAllowed, TIMEZONE };

@@ -5,8 +5,50 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1771344035665,
-      "tag": "0000_wide_mordo",
+      "when": 1781376404518,
+      "tag": "0001_tough_dreadnoughts",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1781376932320,
+      "tag": "0001_nosy_phil_sheldon",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1781512721073,
+      "tag": "0002_empty_tusk",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1781513474828,
+      "tag": "0003_sweet_triton",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1781866224595,
+      "tag": "0004_nappy_mikhail_rasputin",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1781867432847,
+      "tag": "0005_parched_giant_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1781875146070,
+      "tag": "0006_great_adam_warlock",
       "breakpoints": true
     }
   ]

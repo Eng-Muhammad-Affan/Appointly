@@ -1,0 +1,46 @@
+// components/appointments/AppointmentFilters.tsx
+import type React from "react";
+import { cn } from "@/lib/utils";
+
+interface FilterTab {
+  label: string;
+  value: string;
+  isActive?: boolean;
+}
+
+interface AppointmentFiltersProps {
+  activeFilter: string;
+  onFilterChange: (filter: string) => void;
+}
+
+const filters: FilterTab[] = [
+  { label: "All", value: "all" },
+  { label: "Upcoming", value: "upcoming" },
+  { label: "Pending", value: "pending" },
+  { label: "Completed", value: "completed" },
+  { label: "Cancelled", value: "cancelled" },
+];
+
+export const AppointmentFilters: React.FC<AppointmentFiltersProps> = ({
+  activeFilter,
+  onFilterChange,
+}) => {
+  return (
+    <div className="flex flex-wrap items-center gap-sm mb-lg border-b border-outline-variant/30 pb-sm">
+      {filters.map((filter) => (
+        <button
+          key={filter.value}
+          onClick={() => onFilterChange(filter.value)}
+          className={cn(
+            "px-md py-sm font-label-bold text-label-bold border-b-2 transition-all",
+            activeFilter === filter.value
+              ? "border-primary text-primary"
+              : "border-transparent text-on-surface-variant hover:text-primary",
+          )}
+        >
+          {filter.label}
+        </button>
+      ))}
+    </div>
+  );
+};

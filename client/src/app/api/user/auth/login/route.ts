@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import type { z } from "zod";
-import type { LoginFormSchema } from "@shared/validations";
+import type { LoginFormSchema } from "@/validations";
 
 export const POST = async (req: NextRequest) => {
   const { email, password }: z.infer<typeof LoginFormSchema> = await req.json();
@@ -12,7 +12,7 @@ export const POST = async (req: NextRequest) => {
       body: { email, password },
     });
 
-    console.log("Logged in successfully : ", res)
+    console.log("Logged in successfully : ", res);
     return NextResponse.json(
       {
         message: "Login successfull",

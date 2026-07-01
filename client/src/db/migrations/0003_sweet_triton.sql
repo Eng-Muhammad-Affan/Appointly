@@ -1,0 +1,1 @@
+ALTER TABLE "services" DROP COLUMN "provider_name";

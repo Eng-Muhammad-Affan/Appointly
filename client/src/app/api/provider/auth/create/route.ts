@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import type { z } from "zod";
 import { auth } from "@/lib/auth";
-import { ProviderSignupAPIRequestSchema } from "@/features/provider-auth/create-account";
+import { ProviderSignupAPIRequestSchema } from "../../../../../../features/provider-auth/create-account";
 import { PaymentService } from "@/shared/services";
 
 const validate = async (
@@ -29,15 +29,14 @@ export async function POST(req: NextRequest) {
   }
   console.log("✅ Validation passed");
 
-
   console.log("💳 Creating PaymentService...");
   const payments = new PaymentService();
 
   console.log("🏦 Creating Stripe account...");
-  const accountResponse = await payments.CreateProviderAccount({ 
-    country:body.country,
-    email:body.email
-   });
+  const accountResponse = await payments.CreateProviderAccount({
+    country: body.country,
+    email: body.email,
+  });
 
   console.log("✅ Stripe account created:", accountResponse.account_id);
 
@@ -49,12 +48,17 @@ export async function POST(req: NextRequest) {
       role: "PROVIDER",
       password: body.password,
       stripe_account_id: accountResponse.account_id,
+      currency: accountResponse.currency,
     },
   });
+
   console.log("✅ Auth user created:", authResult);
 
   if (accountResponse.status !== 201) {
-    return NextResponse.json({ message: accountResponse.message }, { status: accountResponse.status });
+    return NextResponse.json(
+      { message: accountResponse.message },
+      { status: accountResponse.status },
+    );
   }
 
   console.log("🔗 Generating onboarding link...");
@@ -71,6 +75,6 @@ export async function POST(req: NextRequest) {
 
   console.log("🔄 Redirecting to:", url);
   return NextResponse.json({
-    url: url
+    url: url,
   });
 }

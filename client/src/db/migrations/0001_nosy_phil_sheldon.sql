@@ -1,0 +1,1 @@
+ALTER TABLE "services" RENAME COLUMN "cancellation_policy" TO "cancellation_policy_hrs";
