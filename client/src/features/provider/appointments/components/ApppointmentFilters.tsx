@@ -15,10 +15,10 @@ interface AppointmentFiltersProps {
 
 const filters: FilterTab[] = [
   { label: "All", value: "all" },
-  { label: "Upcoming", value: "upcoming" },
-  { label: "Pending", value: "pending" },
-  { label: "Completed", value: "completed" },
-  { label: "Cancelled", value: "cancelled" },
+  { label: "Upcoming", value: "UPCOMING" },
+  { label: "Pending", value: "PENDING" },
+  { label: "Completed", value: "COMPLETED" },
+  { label: "Cancelled", value: "CANCELLED" },
 ];
 
 export const AppointmentFilters: React.FC<AppointmentFiltersProps> = ({

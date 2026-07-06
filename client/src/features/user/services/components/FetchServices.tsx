@@ -26,9 +26,6 @@ export const FetchServices = ({ children }: { children: React.ReactNode }) => {
     };
 
     getData();
-    setInterval(() => {
-      getData();
-    }, 180000);
   }, [setLoading, setService]);
   return <>{children}</>;
 };

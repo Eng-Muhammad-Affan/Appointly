@@ -9,4 +9,4 @@ export const databaseUrl =
   process.env.DATABASE_URL ||
   "postgresql://affan:secret@localhost:5432/appointly";
 
-export const betterauthURL = process.env.NEXT_PUBLIC_SERVER_URL; // express js development server
+export const betterauthURL = process.env.NEXT_PUBLIC_APP_URL; // express js development server

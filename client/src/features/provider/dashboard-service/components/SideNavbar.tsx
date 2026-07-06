@@ -5,13 +5,12 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
   CalendarCheck,
-  MessageSquare,
   Wallet,
   Settings,
   Plus,
 } from "lucide-react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 
 interface NavItem {
@@ -20,37 +19,34 @@ interface NavItem {
   href: string;
 }
 
-const navigationItems: NavItem[] = [
+export const SideNavBar: React.FC = () => {
+  const pathname = usePathname();
+  
+  const {id} = useParams()
+  
+  const navigationItems: NavItem[] = [
   {
     icon: <LayoutDashboard size={20} />,
     label: "Overview",
-    href: "/dashboard",
-  },
-  {
-    icon: <CalendarCheck size={20} />,
-    label: "Services",
-    href: "/dashboard/services",
+    href: `/dashboard/${id}`,
   },
   {
     icon: <CalendarCheck size={20} />,
     label: "Appointments",
-    href: "/dashboard/appointments",
+    href: `/dashboard/${id}/appointments`,
   },
-  {
-    icon: <MessageSquare size={20} />,
-    label: "Messages",
-    href: "/dashboard/messages",
-  },
-  { icon: <Wallet size={20} />, label: "Wallet", href: "/dashboard/wallet" },
+  // {
+  //   icon: <MessageSquare size={20} />,
+  //   label: "Messages",
+  //   href: `/dashboard/${id}/messages`,
+  // },
+  { icon: <Wallet size={20} />, label: "Wallet", href: `/dashboard/${id}/wallet` },
   {
     icon: <Settings size={20} />,
     label: "Settings",
-    href: "/dashboard/settings",
+    href: `/dashboard/${id}/settings`,
   },
 ];
-
-export const SideNavBar: React.FC = () => {
-  const pathname = usePathname();
 
   return (
     <aside className="hidden md:flex flex-col h-screen w-64 sticky left-0 top-0 bg-white py-6 px-4 border-r border-gray-200/20 z-50">

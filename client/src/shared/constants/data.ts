@@ -7,20 +7,7 @@ export const days = [
   "SATURDAY",
   "SUNDAY",
 ];
-const pagesNotAllowed = [
-  "/dashboard",
-  "/dashboard/appointments",
-  "/dashboard/services",
-  "/dashboard/services/create",
-  "/dashboard/schedule",
-  "/add-service",
-  "/book-appointment",
-  "/login",
-  "/create-account",
-  "/checkout/failed",
-  "/checkout/success",
-  "/account",
-];
+const pageNotAllowedRegex = /(dashboard|account)/ 
 
 const TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -38,7 +25,7 @@ const serviceCategories = [
     value: "Hair cut",
   },
   {
-    key: "Inetrview",
+    key: "Interview",
     value: "Interview",
   },
   {
@@ -47,4 +34,4 @@ const serviceCategories = [
   },
 ];
 
-export { serviceCategories, pagesNotAllowed, TIMEZONE };
+export { serviceCategories, pageNotAllowedRegex, TIMEZONE };

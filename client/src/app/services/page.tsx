@@ -119,7 +119,7 @@ const ServicesPage = () => {
           id="service-grid"
         >
           {filteredServices.map((service, idx) => (
-            <Card key={idx} index={idx} service={service} />
+            <Card key={idx} service={service} />
           ))}
         </div>
 

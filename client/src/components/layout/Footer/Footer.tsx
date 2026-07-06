@@ -11,7 +11,7 @@ import {
   IconCalendarEvent,
 } from "@tabler/icons-react";
 import { usePathname } from "next/navigation";
-import { pagesNotAllowed } from "@/shared/constants";
+import { pageNotAllowedRegex } from "@/shared/constants";
 
 export function Footer() {
   const pathname = usePathname();
@@ -43,7 +43,7 @@ export function Footer() {
     { name: "GDPR", href: "#" },
   ];
 
-  if (pagesNotAllowed.includes(pathname)) {
+  if (pageNotAllowedRegex.test(pathname)) {
     return null;
   }
   return (

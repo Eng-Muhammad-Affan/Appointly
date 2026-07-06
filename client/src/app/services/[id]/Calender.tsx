@@ -4,11 +4,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import "react-day-picker/style.css";
 import { useServiceDetails } from "@/features/user/service-details";
 
-const useSlotDates = () => {
-  return {
-    
-  }
-}
 export function Calendar() {
   const { selectedDate, setSelectedDate } = useServiceDetails();
   const [month, setMonth] = useState<Date>(new Date()); // October 2026

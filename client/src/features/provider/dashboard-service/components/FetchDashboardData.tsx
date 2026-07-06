@@ -5,7 +5,6 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useDashboard } from "../index";
 import axios from "axios";
-// import { useCredentials } from "@/shared/hooks/use-creds";
 
 export const FetchDashboardData = ({
   children,
@@ -13,8 +12,6 @@ export const FetchDashboardData = ({
   children: React.ReactNode;
 }) => {
   const { setServices, selectService, setUser, setLoading } = useDashboard();
-
-  // useCredentials();
 
   const getData = useCallback(async () => {
     try {

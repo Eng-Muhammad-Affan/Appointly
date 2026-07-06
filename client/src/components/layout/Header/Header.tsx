@@ -3,7 +3,7 @@ import { IconMenu2, IconX } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
-import { pagesNotAllowed } from "@/shared/constants";
+import { pageNotAllowedRegex } from "@/shared/constants";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 import type { InferSelectModel } from "drizzle-orm";
@@ -23,10 +23,6 @@ const links = [
     url: "/about",
   },
 ];
-
-type ProfileData = InferSelectModel<typeof user> & {
-  image: string | null | undefined;
-};
 
 const Header = () => {
   const [navStatus, setNavStatus] = useState(false);
@@ -55,7 +51,7 @@ const Header = () => {
 
   const isUser = !!profileData;
 
-  if (pagesNotAllowed.includes(pathname)) {
+  if (pageNotAllowedRegex.test(pathname)) {
     return null;
   }
 

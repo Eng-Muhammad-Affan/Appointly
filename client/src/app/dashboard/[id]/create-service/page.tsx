@@ -2,7 +2,7 @@
 
 import type React from "react";
 import { useEffect, useMemo, useState } from "react";
-import { useDashboard } from "@/features/provider/dashboard";
+import { useDashboard } from "@/features/provider/dashboard-service";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import {
@@ -17,115 +17,17 @@ import {
   AlertTriangle,
   Image as ImageIcon,
 } from "lucide-react";
-import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import {
   FormProvider,
-  useForm,
-  useFormContext,
-  Controller,
+  useForm
 } from "react-hook-form";
 import { cn } from "@/lib/utils";
-import { days } from "@/shared/constants/data";
-import { AddServiceAPISchema } from "@/features/provider/services";
+import { AddServiceAPISchema , FormValues , SelectBoxCreateService , DaySelect} from "@/features/provider/create-service";
 import { serviceCategories } from "@/shared/constants";
 import Image from "next/image";
 import { Input } from "@/components/common";
-
-// Types
-type FormValues = z.infer<typeof AddServiceAPISchema>;
-
-// DaySelect Component
-export const DaySelect = () => {
-  const { control } = useFormContext<FormValues>();
-
-  return (
-    <div className="mb-lg">
-      <label className="block font-label-bold text-label-bold mb-md text-on-surface-variant">
-        Working days
-      </label>
-      <Controller
-        name="working_days"
-        control={control}
-        render={({ field }) => (
-          <div className="grid grid-cols-7 gap-xs">
-            {days.map((day) => (
-              <button
-                key={day}
-                type="button"
-                onClick={() => {
-                  const newValue = field.value.includes(day)
-                    ? field.value.filter((d: string) => d !== day)
-                    : [...field.value, day];
-                  field.onChange(newValue);
-                }}
-                className={cn(
-                  "h-12 flex flex-col items-center justify-center rounded-lg border transition-colors",
-                  field.value.includes(day)
-                    ? "border-2 border-primary bg-primary text-on-primary"
-                    : "border-outline-variant/40 bg-surface-container text-on-surface-variant hover:bg-surface-container-high",
-                )}
-              >
-                <span className="text-[10px] font-bold">
-                  {day.slice(0, 2).toUpperCase()}
-                </span>
-              </button>
-            ))}
-          </div>
-        )}
-      />
-    </div>
-  );
-};
-
-type Option = {
-  key: any;
-  value: any;
-};
-// Select Component
-const SelectBoxCreateService = ({
-  label,
-  options,
-  name,
-}: {
-  label: string;
-  options: Option[];
-  name: keyof FormValues;
-}) => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext<FormValues>();
-  const error = errors[name];
-
-  return (
-    <div>
-      <label className="block font-label-bold text-label-bold mb-xs text-on-surface-variant">
-        {label}
-      </label>
-      <select
-        {...register(name)}
-        className={cn(
-          "w-full px-md py-sm bg-surface-container-lowest border rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all",
-          error ? "border-error" : "border-outline-variant/40",
-        )}
-      >
-        <option value="">Select {label.toLowerCase()}</option>
-        {options.map((opt, idx) => (
-          <option key={idx} value={opt.value}>
-            {opt.value}
-          </option>
-        ))}
-      </select>
-      {error && (
-        <p className="mt-1 text-caption text-error">
-          {error.message as string}
-        </p>
-      )}
-    </div>
-  );
-};
 
 // Main Service Creation Page
 const ServiceCreationPage: React.FC = () => {

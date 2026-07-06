@@ -3,24 +3,13 @@ import type React from "react";
 import { Eye, CalendarCog, XCircle, RefreshCw } from "lucide-react";
 import {
   AppointmentStatus,
-  type AppointmentStatusType,
 } from "./AppointmentStatus";
 
-interface Appointment {
-  client: {
-    name: string;
-    image: string;
-  };
-  service: string;
-  date: string;
-  time: string;
-  duration: string;
-  price: string;
-  status: AppointmentStatusType;
-}
+import { useDashboard, type AppointmentDashboard } from "../../dashboard-service";
+import { formatDate } from "@/utils/format-date";
 
 interface AppointmentRowProps {
-  appointment: Appointment;
+  appointment: AppointmentDashboard;
   onView?: () => void;
   onReschedule?: () => void;
   onCancel?: () => void;
@@ -34,7 +23,8 @@ export const AppointmentRow: React.FC<AppointmentRowProps> = ({
   onCancel,
   onRebook,
 }) => {
-  const isCompleted = appointment.status === "completed";
+  const isCompleted = appointment.status === "COMPLETED";
+  const {selectedService} = useDashboard()
 
   return (
     <tr className="hover:bg-gray-50 transition-colors">
@@ -42,32 +32,32 @@ export const AppointmentRow: React.FC<AppointmentRowProps> = ({
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
             <img
-              alt={appointment.client.name}
+              alt={appointment.customer_name || "customer"}
               className="w-full h-full object-cover"
-              src={appointment.client.image}
+              src={"/images/profile.jpg"}
             />
           </div>
           <span className="font-semibold text-sm text-gray-900">
-            {appointment.client.name}
+            {appointment.customer_name}
           </span>
         </div>
       </td>
       <td className="px-6 py-4">
-        <span className="text-sm text-gray-900">{appointment.service}</span>
+        <span className="text-sm text-gray-900">{selectedService.name}</span>
       </td>
       <td className="px-6 py-4">
         <div className="flex flex-col">
           <span className="font-semibold text-sm text-gray-900">
-            {appointment.date}
+            {appointment.slot_date}
           </span>
-          <span className="text-xs text-gray-500">{appointment.time}</span>
+          <span className="text-xs text-gray-500">{formatDate(appointment.start_time, "hh:mm a")}</span>
         </div>
       </td>
       <td className="px-6 py-4 text-gray-500 text-sm">
-        {appointment.duration}
+        {selectedService.duration}
       </td>
       <td className="px-6 py-4 font-semibold text-sm text-gray-900">
-        {appointment.price}
+        {selectedService.price}
       </td>
       <td className="px-6 py-4">
         <AppointmentStatus status={appointment.status} />
