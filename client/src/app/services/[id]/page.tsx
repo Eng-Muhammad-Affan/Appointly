@@ -1,53 +1,75 @@
 "use client";
-import { ChevronRight, Star, CheckCircle, TrendingDown } from "lucide-react";
-
+import { ChevronRight, Star, CheckCircle } from "lucide-react";
 import { Calendar } from "./Calender";
-import { useParams, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useParams } from "next/navigation";
+import { useEffect, useMemo } from "react";
 import { useService } from "@/features/user/services";
+import dayjs from "@/lib/dayjs";
+
 import Image from "next/image";
-import axios from "axios";
-import { ClientService } from "@/features/user/services";
+import {
+  BookingButton,
+  useServiceDetails,
+} from "@/features/user/service-details";
+import { formatDate } from "@/utils/format-date";
 
 const ServiceDetails = () => {
-  const { id } = useParams();
-  useSearchParams
-  const { services, loading } = useService();
-  const searchParams = useSearchParams()
+  const { id } = useParams() as { id: string };
 
-  const [serviceDetails, setServiceDetails] = useState<ClientService | null>(null);
+  const { services, loading } = useService();
+
+  const {
+    selectedDate,
+    getSlots,
+    fetchClientService,
+    slots,
+    service,
+    setService,
+    setSelectedSlot,
+    selectedSlot
+  } = useServiceDetails();
 
   useEffect(() => {
     if (id) {
       const result = services.find((service) => service.id === id);
 
-      if(!result) {
-        getSlots()
+      if (!result) {
+        fetchClientService(id);
+      } else {
+        setService(result);
+        getSlots(result);
       }
     }
-    else {
-      getSlots()
-    }
+  }, [id]);
 
-    
+  const filteredSlots = useMemo(() => {
+    // Log the actual type and value of slots
+    // console.log('🔍 slots type:', typeof slots);
+    // console.log('🔍 is slots an array?', Array.isArray(slots));
+    // console.log('🔍 slots value:', slots);
+    // console.log('🔍 slots constructor:', slots?.constructor?.name);
 
-    const fetchServiceDetails = async () => {
-      try {
-        const response = await axios.get(`/api/services/${id}`)
+    // This will throw the error if slots is not an array
+    // if (!Array.isArray(slots)) {
+    //   console.error('❌ SLOTS IS NOT AN ARRAY!', slots);
+    //   return [];
+    // }
 
-      } catch (err) {
-        console.log(err)
-      }
-    }
+    const year = selectedDate.getFullYear();
+    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+    const day = String(selectedDate.getDate()).padStart(2, '0');
+    const dateString = `${year}-${month}-${day}`;
+
+    return slots.filter(slot => slot.slot_date === dateString);
+  }, [selectedDate, slots]);
 
 
-  }, [id])
 
-  if (!serviceDetails && loading) {
+  if (!service && loading) {
     return "Loading";
-  } else if (!serviceDetails && !loading) {
+  } else if (!service && !loading) {
     return "Error";
-  } else {
+  } else if (service) {
     return (
       <main className="max-w-7xl mx-auto px-4 md:px-8 py-15">
         {/* Breadcrumb */}
@@ -67,11 +89,11 @@ const ServiceDetails = () => {
                 WELLNESS
               </span>
               <h1 className="text-3xl font-bold text-on-surface mb-2">
-                {serviceDetails.name}
+                {service.name}
               </h1>
               <div className="flex flex-wrap items-center gap-4">
                 <span className="text-base font-medium">
-                  by {serviceDetails.user.name}
+                  by {service.userName}
                 </span>
                 <div className="flex items-center gap-0.5 text-secondary">
                   <Star size={16} className="fill-secondary" />
@@ -85,12 +107,12 @@ const ServiceDetails = () => {
                 </div>
                 <div className="flex items-center gap-1 px-2 py-0.5 bg-accent/20 text-[#2D5A27] rounded-lg text-xs font-semibold">
                   <CheckCircle size={16} />
-                  <span>250+ Appointments</span>
+                  <span>{slots.length} Appointments</span>
                 </div>
               </div>
               <div className="mt-4">
                 <span className="text-2xl font-bold text-primary">
-                  {serviceDetails.currency} {serviceDetails.price}{" "}
+                  {service.currency.toUpperCase()} {service.price}
                   <span className="text-base font-normal text-on-surface-variant">
                     / session
                   </span>
@@ -102,7 +124,7 @@ const ServiceDetails = () => {
               <Image
                 alt="Swedish Massage"
                 className="w-full h-full object-cover"
-                src={serviceDetails.image}
+                src={service.image}
                 width={400}
                 height={400}
               />
@@ -111,14 +133,14 @@ const ServiceDetails = () => {
             <div className="space-y-4">
               <h3 className="text-xl font-bold">About This Service</h3>
               <p className="text-base text-on-surface-variant leading-relaxed">
-                {serviceDetails.description}
+                {service.description}
               </p>
             </div>
 
             <div className="space-y-4">
               <h3 className="text-xl font-bold">What's Included</h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {serviceDetails.details.map((detail, idx) => (
+                {service.details.map((detail, idx) => (
                   <li className="flex items-center gap-3" key={idx}>
                     <CheckCircle
                       size={20}
@@ -154,7 +176,10 @@ const ServiceDetails = () => {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <h3 className="text-xl font-bold">Reviews</h3>
-                <button className="text-secondary font-semibold text-sm hover:underline">
+                <button
+                  type="button"
+                  className="text-secondary font-semibold text-sm hover:underline"
+                >
                   See All Reviews →
                 </button>
               </div>
@@ -217,36 +242,39 @@ const ServiceDetails = () => {
 
             {/* Available Slots */}
             <div className="space-y-4 mb-8">
-              <h4 className="text-base font-bold">Available Slots</h4>
-              <div className="space-y-2">
-                {/* Slot 1 */}
-                <div className="flex items-center justify-between p-4 border-l-4 border-accent bg-surface-container-low rounded-lg">
-                  <div>
-                    <div className="font-semibold">09:00 AM - 10:00 AM</div>
-                    <span className="text-[10px] bg-accent text-[#2D5A27] px-1.5 py-0.5 rounded-full font-bold flex items-center gap-1">
-                      <TrendingDown size={10} /> 20% Off
-                    </span>
-                  </div>
-                  <span className="text-sm font-bold text-[#2D5A27]">$68</span>
-                </div>
+              {filteredSlots.length <= 0 ? <h4 className="text-base font-bold">No Slots found</h4> : <>
+                <h4 className="text-base font-bold">Available Slots</h4>
+                <div className="space-y-2">
+                  {filteredSlots.map((slot, idx) => { 
+                    const start_time = formatDate(dayjs(slot.start_time).toDate(), "hh:mm A");
+                    const end_time = formatDate(dayjs(slot.end_time).toDate(), "hh:mm A");
 
-                {/* Slot 2 */}
-                <div className="flex items-center justify-between p-4 border border-outline-variant/10 hover:border-secondary transition-colors rounded-lg cursor-pointer">
-                  <div className="font-semibold">11:30 AM - 12:30 PM</div>
-                  <span className="text-sm font-bold">$85</span>
+                    return (
+                      <div
+                      onClick={() => setSelectedSlot(slot)}
+                        className={`${selectedSlot && selectedSlot.id === slot.id ? "bg-accent": "bg-surface-container-low"} cursor-pointer flex items-center justify-between p-4 border-l-4 border-accent  rounded-lg`}
+                        key={idx}
+                      >
+                        <div>
+                          <div className="font-semibold">
+                            {start_time} - {end_time}
+                          </div>
+                          {/* <span className="text-[10px] bg-accent text-[#2D5A27] px-1.5 py-0.5 rounded-full font-bold flex items-center gap-1">
+                          <TrendingDown size={10} /> 20% Off
+                        </span> */}
+                        </div>
+                        <span className="text-sm font-bold text-[#2D5A27]">
+                          {service.currency.toUpperCase()} {service.price}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
+              </>}
 
-                {/* Slot 3 */}
-                <div className="flex items-center justify-between p-4 border border-outline-variant/10 hover:border-secondary transition-colors rounded-lg cursor-pointer">
-                  <div className="font-semibold">02:00 PM - 03:00 PM</div>
-                  <span className="text-sm font-bold">$85</span>
-                </div>
-              </div>
             </div>
 
-            <button className="w-full bg-accent hover:bg-accent/80 text-black py-4 rounded-lg font-semibold text-base transition-all transform active:scale-[0.98] shadow-sm">
-              Book My Slot
-            </button>
+            <BookingButton serviceName={service.name} />
             <p className="text-center text-xs text-outline mt-4">
               No payment required until after service.
             </p>

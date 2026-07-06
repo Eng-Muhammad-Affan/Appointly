@@ -23,7 +23,7 @@ export function Hero() {
                 <span className="block text-pink">Appointments</span>
                 <span className="block">Effortlessly</span>
               </h1>
-              <p className="text-xl text-gray-600 leading-relaxed max-w-lg max-sm:text-sm">
+              <p className="text-xl text-gray-600 leading-relaxed max-sm:text-sm">
                 The all-in-one platform that connects clients with top-rated
                 service providers while automating appointment management for
                 businesses.
@@ -121,7 +121,7 @@ export function Hero() {
             </div>
 
             {/* Background Decorations */}
-            <div className="absolute -z-10 top-0 right-0 w-72 h-72 bg-[#e189fa]/20 rounded-full blur-3xl"></div>
+            <div className="absolute -z-10 top-0 right-0 w-72 h-72 bg-pink/20 rounded-full blur-3xl"></div>
             <div className="absolute -z-10 bottom-0 left-0 w-64 h-64 bg-[#dbc81d]/20 rounded-full blur-3xl"></div>
           </div>
         </div>

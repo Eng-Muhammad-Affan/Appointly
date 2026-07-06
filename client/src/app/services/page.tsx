@@ -18,49 +18,82 @@ const ServicesPage = () => {
   } = useServiceFilter();
 
   return (
-    <main className="flex-grow">
-      <section className="sticky top-[64px] z-40 bg-tertiary-cream pt-6 pb-4 px-4 md:px-8 space-y-4">
+    <main className="pt-20 flex-grow">
+      <section className="z-40 bg-tertiary-cream pt-6 pb-4 px-4 md:px-8 space-y-4">
         <SearchBar />
 
         <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2">
-          <button className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-secondary text-primary">
+          <button
+            type="button"
+            className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-secondary text-primary"
+          >
             All
           </button>
-          <button className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary">
+          <button
+            type="button"
+            className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary"
+          >
             Salons
           </button>
-          <button className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary">
+          <button
+            type="button"
+            className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary"
+          >
             Clinics
           </button>
-          <button className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary">
+          <button
+            type="button"
+            className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary"
+          >
             Wellness
           </button>
-          <button className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary">
+          <button
+            type="button"
+            className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary"
+          >
             Fitness
           </button>
-          <button className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary">
+          <button
+            type="button"
+            className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary"
+          >
             Consulting
           </button>
-          <button className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary">
+          <button
+            type="button"
+            className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary"
+          >
             Automotive
           </button>
-          <button className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary">
+          <button
+            type="button"
+            className="px-6 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 hover:border-secondary"
+          >
             Other
           </button>
         </div>
 
         <div className="flex flex-wrap gap-4 items-center justify-between">
           <div className="flex flex-wrap gap-2">
-            <button className="flex items-center gap-1 px-4 py-2 bg-surface-container-lowest border border-outline-variant/20 rounded-lg text-body-small text-on-surface hover:bg-surface-container transition-colors">
+            <button
+              type="button"
+              className="flex items-center gap-1 px-4 py-2 bg-surface-container-lowest border border-outline-variant/20 rounded-lg text-body-small text-on-surface hover:bg-surface-container transition-colors"
+            >
               <MapPin size={18} />
               <span>Location</span>
               <ChevronDown size={18} />
             </button>
-            <button className="flex items-center gap-1 px-4 py-2 bg-surface-container-lowest border border-outline-variant/20 rounded-lg text-body-small text-on-surface hover:bg-surface-container transition-colors">
+            <button
+              type="button"
+              className="flex items-center gap-1 px-4 py-2 bg-surface-container-lowest border border-outline-variant/20 rounded-lg text-body-small text-on-surface hover:bg-surface-container transition-colors"
+            >
               <span>Rating</span>
               <ChevronDown size={18} />
             </button>
-            <button className="flex items-center gap-1 px-4 py-2 bg-surface-container-lowest border border-outline-variant/20 rounded-lg text-body-small text-on-surface hover:bg-surface-container transition-colors">
+            <button
+              type="button"
+              className="flex items-center gap-1 px-4 py-2 bg-surface-container-lowest border border-outline-variant/20 rounded-lg text-body-small text-on-surface hover:bg-surface-container transition-colors"
+            >
               <span>Trusted</span>
               <ChevronDown size={18} />
             </button>
@@ -70,7 +103,10 @@ const ServicesPage = () => {
             <span className="font-semibold text-xs text-primary">
               Near Me: San Francisco, CA
             </span>
-            <button className="hover:bg-accent/20 rounded-full transition-colors p-0.5">
+            <button
+              type="button"
+              className="hover:bg-accent/20 rounded-full transition-colors p-0.5"
+            >
               <X size={16} className="text-primary" />
             </button>
           </div>

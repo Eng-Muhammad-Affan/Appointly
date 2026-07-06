@@ -9,7 +9,7 @@ import {
   boolean,
 } from "drizzle-orm/pg-core";
 import { user } from "./users";
-import { type InferSelectModel } from "drizzle-orm";
+import type { InferSelectModel } from "drizzle-orm";
 
 export const service = pgTable("services", {
   id: uuid("id").primaryKey().defaultRandom(),

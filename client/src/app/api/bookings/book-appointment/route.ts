@@ -3,14 +3,15 @@ import db from "@/db";
 import { appointment, service } from "@/db/schemas";
 import { v4 } from "uuid";
 import { eq } from "drizzle-orm";
-import type { AppointmentClient } from "@shared/types";
 import { NextResponse, type NextRequest } from "next/server";
+import z from "zod";
+import { BookingSchema } from "@/features/user/service-details";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 const urls = {
-  success: `${process.env.BETTER_AUTH_URL}/checkout/success`,
-  failed: `${process.env.BETTER_AUTH_URL}/checkout/failed`,
+  success: `https://${process.env.NEXT_PUBLIC_APP_URL}/checkout/success`,
+  failed: `https://${process.env.NEXT_PUBLIC_APP_URL}/checkout/failed`,
 };
 
 // ____ Function for getting service name ...
@@ -40,16 +41,14 @@ interface PivotObject {
   service_price: number;
 }
 
-type FormData = AppointmentClient & {
-  customer_name: string;
-  customer_email: string;
-};
+type FormData = z.infer<typeof BookingSchema>;
 
 export const POST = async (req: NextRequest) => {
   const formData: FormData = await req.json();
   /*
   Attached multiple trycatch blocks for effective error handling ...
   */
+ console.log(urls)
   console.log("-------------- Get formData -------------- : ");
   console.log(formData);
   // ____ For storing data from different blocks ...

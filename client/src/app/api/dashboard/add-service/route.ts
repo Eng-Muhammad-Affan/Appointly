@@ -3,12 +3,12 @@ import db from "@/db";
 import { NextResponse } from "next/server";
 import { service } from "@/db/schemas";
 import { createClient } from "@supabase/supabase-js";
-import { GenerateSlots } from "@shared/utils";
+import { GenerateSlots } from "@/utils";
 
 // Initialize Supabase client
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!, // Use service role key for server-side operations
+  process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+  process.env.SUPABASE_SERVICE_ROLE_KEY as string, // Use service role key for server-side operations
 );
 
 export const POST = async (req: NextRequest) => {

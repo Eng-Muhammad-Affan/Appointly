@@ -1,2 +1,2 @@
 export * from "./generate-slots";
-export * from "../../lib/dayjs";
+export * from "../lib/dayjs";

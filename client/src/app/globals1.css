@@ -1,0 +1,224 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+
+
+  --color-primary: #000000;
+  --color-secondary: #F6A7C1;
+  --color-secondary-dark: #8a4b62;
+  --color-secondary-container: #fdadc7;
+  --color-tertiary: #FFF9E6;
+  --color-accent: #92E889;
+  --color-muted: #9B6B9E;
+
+
+  --color-surface: #f9f9f9;
+  --color-surface-dim: #dadada;
+  --color-surface-bright: #f9f9f9;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f3f3;
+  --color-surface-container: #eeeeee;
+  --color-surface-container-high: #e8e8e8;
+  --color-surface-container-highest: #e2e2e2;
+
+
+  --color-on-surface: #1b1b1b;
+  --color-on-surface-variant: #4c4546;
+  --color-outline: #7e7576;
+  --color-outline-variant: #cfc4c5;
+
+
+  --spacing-margin-mobile: 16px;
+  --spacing-margin-desktop: 32px;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-tertiary);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+}
+
+@utility card-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+} */
+
+/* app/globals.css */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+
+  /* Color Palette */
+  --color-primary: #000000;
+  --color-secondary: #f6a7c1;
+  --color-secondary-dark: #8a4b62;
+  --color-secondary-container: #fdadc7;
+  --color-tertiary: #fff9e6;
+  --color-accent: #92e889;
+  --color-muted: #9b6b9e;
+
+  /* On Primary Colors */
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #000000;
+  --color-on-secondary-container: #000000;
+  --color-on-tertiary: #000000;
+
+  /* Surfaces */
+  --color-surface: #f9f9f9;
+  --color-surface-dim: #dadada;
+  --color-surface-bright: #f9f9f9;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f3f3;
+  --color-surface-container: #eeeeee;
+  --color-surface-container-high: #e8e8e8;
+  --color-surface-container-highest: #e2e2e2;
+
+  /* On Colors */
+  --color-on-surface: #1b1b1b;
+  --color-on-surface-variant: #4c4546;
+  --color-outline: #7e7576;
+  --color-outline-variant: #cfc4c5;
+
+  /* Status Colors */
+  --color-success: #2d6a4f;
+  --color-success-container: #d1e7dd;
+  --color-error: #dc3545;
+  --color-error-container: #f8d7da;
+  --color-warning: #ffc107;
+  --color-warning-container: #fff3cd;
+
+  /* Brand Colors */
+  --color-brand-secondary: #f0f0f0;
+
+  /* Accent Success - for the specific green shade used in confirmed status */
+  --color-accent-success: #2d6a4f;
+
+  /* Custom spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  --spacing-margin-mobile: 16px;
+  --spacing-margin-desktop: 32px;
+
+  /* Typography Scale */
+  --text-h1: 2rem;
+  --text-h1--line-height: 2.5rem;
+  --text-h1--font-weight: 700;
+
+  --text-h2: 1.5rem;
+  --text-h2--line-height: 2rem;
+  --text-h2--font-weight: 600;
+
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.75rem;
+  --text-h3--font-weight: 600;
+
+  --text-body-base: 1rem;
+  --text-body-base--line-height: 1.5rem;
+
+  --text-body-small: 0.875rem;
+  --text-body-small--line-height: 1.25rem;
+
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+
+  --text-label-bold: 0.875rem;
+  --text-label-bold--line-height: 1.25rem;
+  --text-label-bold--font-weight: 600;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-tertiary);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  /* Ensure proper font rendering */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /* Glass effect for bottom nav */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
+/* Custom utility for hover effects */
+@utility card-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Text utility classes for the typography system */
+@utility font-h1 {
+  font-size: var(--text-h1);
+  line-height: var(--text-h1--line-height);
+  font-weight: var(--text-h1--font-weight);
+}
+
+@utility font-h2 {
+  font-size: var(--text-h2);
+  line-height: var(--text-h2--line-height);
+  font-weight: var(--text-h2--font-weight);
+}
+
+@utility font-h3 {
+  font-size: var(--text-h3);
+  line-height: var(--text-h3--line-height);
+  font-weight: var(--text-h3--font-weight);
+}
+
+@utility font-body-base {
+  font-size: var(--text-body-base);
+  line-height: var(--text-body-base--line-height);
+}
+
+@utility font-body-small {
+  font-size: var(--text-body-small);
+  line-height: var(--text-body-small--line-height);
+}
+
+@utility font-caption {
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+}
+
+@utility font-label-bold {
+  font-size: var(--text-label-bold);
+  line-height: var(--text-label-bold--line-height);
+  font-weight: var(--text-label-bold--font-weight);
+}

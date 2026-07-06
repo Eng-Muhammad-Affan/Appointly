@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import type { z } from "zod";
 import { auth } from "@/lib/auth";
-import { ProviderSignupAPIRequestSchema } from "../../../../../../features/provider-auth/create-account";
+import { ProviderSignupAPIRequestSchema } from "@/app/(auth-provider)/create-account/validations";
 import { PaymentService } from "@/shared/services";
 
 const validate = async (
@@ -12,7 +12,9 @@ const validate = async (
   try {
     ProviderSignupAPIRequestSchema.parse(data);
     return null;
+    // biome-ignore lint/suspicious/noExplicitAny:any required here
   } catch (err: any) {
+    // biome-ignore lint/suspicious/noExplicitAny:any required here
     return err.issues.map((issue: any) => issue.message);
   }
 };

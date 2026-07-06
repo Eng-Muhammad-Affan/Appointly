@@ -1,26 +1,28 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { Calendar, CalendarX, History, Settings, LogOut } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const SideBar = () => {
+  const router = useRouter();
   const pathname = usePathname();
 
   const navItems = [
     {
       path: "/account/appointments",
-      label: "Upcoming Appointments",
+      label: "Upcoming",
       icon: Calendar,
     },
     {
       path: "/account/cancelled",
-      label: "Cancelled Appointments",
+      label: "Cancelled",
       icon: CalendarX,
     },
     {
       path: "/account/reschedule",
-      label: "Reschedule Requests",
+      label: "Reschedules",
       icon: History,
     },
     { path: "/account/settings", label: "Settings", icon: Settings },
@@ -64,8 +66,9 @@ const SideBar = () => {
       <div className="mt-auto pt-6">
         <button
           className="w-full flex items-center gap-4 px-4 py-2 rounded-lg text-[#E74C3C] hover:bg-red-50 transition-colors font-semibold"
-          onClick={() => {
-            /* handle logout */
+          onClick={async () => {
+            await authClient.signOut();
+            router.push("/");
           }}
         >
           <LogOut size={20} />

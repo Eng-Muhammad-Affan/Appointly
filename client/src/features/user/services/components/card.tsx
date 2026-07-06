@@ -3,7 +3,10 @@ import type { ClientService } from "../types";
 import Image from "next/image";
 import Link from "next/link";
 
-export const Card = ({ service, index }: { service: ClientService, index:number}) => {
+export const Card = ({
+  service
+}: {
+  service: ClientService}) => {
   return (
     <div className="group relative bg-surface-container-lowest rounded-xl p-4 border border-transparent transition-all card-hover custom-shadow overflow-hidden flex flex-col h-full">
       <div className="relative h-48 mb-4 overflow-hidden rounded-lg">
@@ -47,7 +50,7 @@ export const Card = ({ service, index }: { service: ClientService, index:number}
           {service.currency.toUpperCase()}
           {service.price} / session
         </span>
-        <Link href={`/services/${service.id}/?index=${index}`}>
+        <Link href={`/services/${service.id}`}>
           <button
             type="button"
             className="px-4 py-2 bg-secondary text-primary rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity"

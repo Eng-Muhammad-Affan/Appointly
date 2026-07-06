@@ -7,6 +7,7 @@ interface ServiceState {
   services: ClientService[];
   setLoading: (value: boolean) => void;
   setService: (list: ClientService[]) => void;
+  selectedService: ClientService;
 }
 
 export const useService = create<ServiceState>()(
@@ -20,25 +21,20 @@ export const useService = create<ServiceState>()(
         category: "",
         currency: "",
         ratings: [],
-        appointmentsCount: 0,
+        remainingSlots: 0,
         max_appointments_per_day: 0,
         details: [],
-        provider_name: "",
         start_time: "",
         end_time: "",
         duration: 0,
         id: "",
         created_at: new Date(),
-        user_id: "",
         working_days: [],
         price: 0,
-        remainingAppointments: 0,
-        buffer_time_in_min:0,
-        image:"",
-        cancellation_policy_hrs:0,
-        user: {
-          name:""
-        }
+        buffer_time_in_min: 0,
+        image: "",
+        cancellation_policy_hrs: 0,
+        userName: "",
       },
       setLoading: (value) => set(() => ({ loading: value })),
       setService: (list) =>

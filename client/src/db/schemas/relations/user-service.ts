@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { service ,user } from "@/db/schemas";
+import { service, user } from "@/db/schemas";
 
 export const userToServiceRelation = relations(user, ({ many }) => ({
   services: many(service),

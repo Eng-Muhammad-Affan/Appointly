@@ -5,5 +5,4 @@ export * from "./components/FetchServices";
 export * from "./components/searchbar";
 export * from "./components/not-found";
 
-
-export * from "./types"
+export * from "./types";

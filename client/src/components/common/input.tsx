@@ -6,6 +6,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { useFormContext } from "react-hook-form";
 import { Eye, EyeOff, Lock } from "lucide-react";
+import Link from "next/link";
 
 type BaseFieldProps = {
   label: string;
@@ -86,11 +87,11 @@ export default function Input({
               className,
             )}
             onChange={(e) => {
-              console.log(`${name} onChange ->`, e.target.value);
+              // console.log(`${name} onChange ->`, e.target.value);
               field.onChange(e);
             }}
             onBlur={(e) => {
-              console.log(`${name} onBlur`);
+              // console.log(`${name} onBlur`);
               field.onBlur(e);
             }}
           />
@@ -111,9 +112,9 @@ export default function Input({
         </label>
 
         {type === "password" && (
-          <a href="#" className="text-sm text-secondary">
+          <Link href="#" className="text-sm text-secondary">
             Forgot Password?
-          </a>
+          </Link>
         )}
       </div>
 
@@ -137,11 +138,11 @@ export default function Input({
             className,
           )}
           onChange={(e) => {
-            console.log(`${name} onChange ->`, e.target.value);
+            // console.log(`${name} onChange ->`, e.target.value);
             field.onChange(e);
           }}
           onBlur={(e) => {
-            console.log(`${name} onBlur`);
+            // console.log(`${name} onBlur`);
             field.onBlur(e);
           }}
         />

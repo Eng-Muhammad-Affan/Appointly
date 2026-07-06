@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { FetchUserProfileData } from "../../../features/account";
+import { FetchUserProfileData } from "@/features/user/account";
 import SideBar from "./Sidebar";
 
 export const metadata: Metadata = {

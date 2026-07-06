@@ -4,7 +4,7 @@ import db from "@/db";
 import { type Appointment, type Service, appointment } from "@/db/schemas";
 import dayjs from "@/lib/dayjs";
 import { and, eq, gt, not, or } from "drizzle-orm";
-import { GenerateSlots } from "@/shared/utils";
+import { GenerateSlots } from "@/utils";
 
 type Payload = Pick<
   Service,

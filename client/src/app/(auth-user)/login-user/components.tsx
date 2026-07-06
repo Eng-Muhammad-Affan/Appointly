@@ -1,5 +1,6 @@
 "use client";
 import { Verified } from "lucide-react";
+import Image from "next/image";
 
 export const LeftImageSection = () => {
   return (
@@ -14,7 +15,9 @@ export const LeftImageSection = () => {
 
         <div className="relative group">
           {/* Image provided via placeholder */}
-          <img
+          <Image
+            width={300}
+            height={300}
             alt="Appointly Illustration"
             className="w-[400px] h-auto object-contain transform group-hover:scale-105 transition-transform duration-500 ease-out"
             src="/images/login-illustration.png"

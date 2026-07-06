@@ -24,7 +24,10 @@ export const BottomNavBar: React.FC = () => {
       </Link>
 
       <div className="relative -top-6">
-        <button className="bg-blue-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:opacity-90 transition-all">
+        <button
+          type="button"
+          className="bg-blue-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:opacity-90 transition-all"
+        >
           <Plus size={32} />
         </button>
       </div>

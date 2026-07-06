@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import type { AppointmentProfile } from "../types";
 import dayjs from "dayjs";
 import { RescheduleButton } from "./RescheduleButton";
-import { formatDate } from "@/shared/utils/format-date";
+import { formatDate } from "@/utils/format-date";
 
 export function AppointmentCard({
   appointment,

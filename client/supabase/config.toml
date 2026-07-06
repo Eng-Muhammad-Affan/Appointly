@@ -1,0 +1,15 @@
+[analytics]
+enabled = true
+port = 40027
+
+[api]
+port = 54321
+
+[db]
+port = 54322
+
+[studio]
+port = 54323
+
+[local_smtp]
+port = 40024

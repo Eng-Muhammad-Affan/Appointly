@@ -1,4 +1,5 @@
 // components/layout/SideNavBar.tsx
+"use client";
 import type React from "react";
 import { cn } from "@/lib/utils";
 import {
@@ -10,12 +11,13 @@ import {
   Plus,
 } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface NavItem {
   icon: React.ReactNode;
   label: string;
   href: string;
-  isActive?: boolean;
 }
 
 const navigationItems: NavItem[] = [
@@ -33,7 +35,6 @@ const navigationItems: NavItem[] = [
     icon: <CalendarCheck size={20} />,
     label: "Appointments",
     href: "/dashboard/appointments",
-    isActive: true,
   },
   {
     icon: <MessageSquare size={20} />,
@@ -49,6 +50,8 @@ const navigationItems: NavItem[] = [
 ];
 
 export const SideNavBar: React.FC = () => {
+  const pathname = usePathname();
+
   return (
     <aside className="hidden md:flex flex-col h-screen w-64 sticky left-0 top-0 bg-white py-6 px-4 border-r border-gray-200/20 z-50">
       <div className="mb-6 px-4">
@@ -74,21 +77,24 @@ export const SideNavBar: React.FC = () => {
       </div>
 
       <nav className="flex-1 space-y-1">
-        {navigationItems.map((item) => (
-          <a
-            key={item.label}
-            href={item.href}
-            className={cn(
-              "flex items-center gap-4 px-4 py-2 rounded-lg transition-all",
-              item.isActive
-                ? "bg-secondary active:opacity-80"
-                : "text-black hover:bg-brand-secondary",
-            )}
-          >
-            {item.icon}
-            <span className="font-semibold text-sm">{item.label}</span>
-          </a>
-        ))}
+        {navigationItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              className={cn(
+                "flex items-center gap-4 px-4 py-2 rounded-lg transition-all",
+                isActive
+                  ? "bg-secondary active:opacity-80"
+                  : "text-black hover:bg-brand-secondary",
+              )}
+            >
+              {item.icon}
+              <span className="font-semibold text-sm">{item.label}</span>
+            </Link>
+          );
+        })}
       </nav>
 
       <div className="mt-auto px-4">

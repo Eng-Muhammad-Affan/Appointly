@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { service , appointment} from "../index";
+import { service, appointment } from "../index";
 
 export const serviceRelationWithAppointments = relations(
   service,

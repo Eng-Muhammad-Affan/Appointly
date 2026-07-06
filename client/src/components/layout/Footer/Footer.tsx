@@ -57,7 +57,7 @@ export function Footer() {
               <IconCalendarEvent className="h-8 w-8 mr-2 text-[#e189fa]" />
               <span className="text-2xl font-bold">Appointly</span>
             </div>
-            <p className="text-gray-400 leading-relaxed max-w-md max-sm:text-sm">
+            <p className="text-gray-400 leading-relaxed max-sm:text-sm">
               The all-in-one platform that connects clients with top-rated
               service providers while automating appointment management for
               businesses.

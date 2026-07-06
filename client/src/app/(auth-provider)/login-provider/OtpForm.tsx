@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/input-otp";
 import { useOTP } from "./use-otp";
 import Link from "next/link";
+import Image from "next/image";
 
 export const OTPForm = () => {
   const { setOTP, resendOTP, verifyOTP, loading } = useOTP();
@@ -19,7 +20,9 @@ export const OTPForm = () => {
 
       <div className="space-y-4 mb-8">
         <div className="flex justify-center">
-          <img
+          <Image
+            width={300}
+            height={300}
             alt="Appointly illustration"
             className="w-[200px] h-auto object-contain"
             src="/images/signup-user-illustration.png"
@@ -55,15 +58,15 @@ export const OTPForm = () => {
                   <InputOTPGroup className="flex gap-2">
                     <InputOTPSlot
                       index={0}
-                      className="w-12 h-12 md:w-14 md:h-14 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-lg md:text-xl font-bold"
+                      className="w-8 h-8 md:w-10 md:h-10 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-sm md:text-md font-bold"
                     />
                     <InputOTPSlot
                       index={1}
-                      className="w-12 h-12 md:w-14 md:h-14 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-lg md:text-xl font-bold"
+                      className="w-8 h-8 md:w-10 md:h-10 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-sm md:text-md font-bold"
                     />
                     <InputOTPSlot
                       index={2}
-                      className="w-12 h-12 md:w-14 md:h-14 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-lg md:text-xl font-bold"
+                      className="w-8 h-8 md:w-10 md:h-10 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-sm md:text-md font-bold"
                     />
                   </InputOTPGroup>
                   <InputOTPSeparator className="text-outline-variant font-bold">
@@ -72,15 +75,15 @@ export const OTPForm = () => {
                   <InputOTPGroup className="flex gap-2">
                     <InputOTPSlot
                       index={3}
-                      className="w-12 h-12 md:w-14 md:h-14 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-lg md:text-xl font-bold"
+                      className="w-8 h-8 md:w-10 md:h-10 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-sm md:text-md font-bold"
                     />
                     <InputOTPSlot
                       index={4}
-                      className="w-12 h-12 md:w-14 md:h-14 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-lg md:text-xl font-bold"
+                      className="w-8 h-8 md:w-10 md:h-10 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-sm md:text-md font-bold"
                     />
                     <InputOTPSlot
                       index={5}
-                      className="w-12 h-12 md:w-14 md:h-14 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-lg md:text-xl font-bold"
+                      className="w-8 h-8 md:w-10 md:h-10 bg-surface-container-lowest border border-outline-variant hover:border-outline focus:border-primary focus:ring-0 focus:outline-none rounded-lg text-body-base transition-all focus:border-2 text-center text-sm md:text-md font-bold"
                     />
                   </InputOTPGroup>
                 </div>

@@ -6,6 +6,7 @@ import { OTPForm } from "./OtpForm";
 import { Verified } from "lucide-react";
 import { Input } from "@/components/common";
 import { FormProvider } from "react-hook-form";
+import Image from "next/image";
 
 export default function ProviderLoginForm() {
   const { login, otpVisible, methods } = useLoginForm();
@@ -30,7 +31,9 @@ export default function ProviderLoginForm() {
 
               <div className="relative group">
                 {/* Image provided via placeholder */}
-                <img
+                <Image
+                  width={300}
+                  height={300}
                   alt="Appointly Illustration"
                   className="w-[400px] h-auto object-contain transform group-hover:scale-105 transition-transform duration-500 ease-out"
                   src="/images/login-illustration.png"

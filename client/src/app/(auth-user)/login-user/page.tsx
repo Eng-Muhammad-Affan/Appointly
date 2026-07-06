@@ -32,7 +32,7 @@ const LoginPage = () => {
   methods.watch();
 
   const login = methods.handleSubmit(async ({ email, password }) => {
-    console.log("Submitting...", { email, password });
+    // console.log("Submitting...", { email, password });
 
     const { error } = await authClient.signIn.email({
       email,

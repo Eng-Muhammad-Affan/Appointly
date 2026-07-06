@@ -48,12 +48,12 @@ export const useSignupForm = () => {
         toast.error("Passwords do not match");
         return;
       }
-      const { data, error } = await authClient.signUp.email({
+      const response = await authClient.signUp.email({
         ..._formData,
         callbackURL: "/account",
       });
-      if (error) {
-        toast.error(error.message);
+      if (response.error) {
+        toast.error(response.error.message);
       } else {
         toast.success("Account created successfully");
         await authClient.getSession();

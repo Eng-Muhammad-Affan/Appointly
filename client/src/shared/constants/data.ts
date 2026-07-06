@@ -1,12 +1,12 @@
-// const days = [
-//   "MONDAY",
-//   "TUESDAY",
-//   "WEDNESDAY",
-//   "THURSDAY",
-//   "FRIDAY",
-//   "SATURDAY",
-//   "SUNDAY",
-// ];
+export const days = [
+  "MONDAY",
+  "TUESDAY",
+  "WEDNESDAY",
+  "THURSDAY",
+  "FRIDAY",
+  "SATURDAY",
+  "SUNDAY",
+];
 const pagesNotAllowed = [
   "/dashboard",
   "/dashboard/appointments",

@@ -2,10 +2,15 @@ import { useState } from "react";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import "react-day-picker/style.css";
-import dayjs from "dayjs";
+import { useServiceDetails } from "@/features/user/service-details";
 
+const useSlotDates = () => {
+  return {
+    
+  }
+}
 export function Calendar() {
-  const [selected, setSelected] = useState<Date>(dayjs().toDate());
+  const { selectedDate, setSelectedDate } = useServiceDetails();
   const [month, setMonth] = useState<Date>(new Date()); // October 2026
   const _defaultClassNames = getDefaultClassNames();
 
@@ -27,12 +32,12 @@ export function Calendar() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="mx-auto p-4">
       <DayPicker
         required
         mode="single"
-        selected={selected}
-        onSelect={setSelected}
+        selected={selectedDate}
+        onSelect={setSelectedDate}
         month={month}
         onMonthChange={setMonth}
         showOutsideDays
@@ -103,10 +108,10 @@ export function Calendar() {
       />
 
       {/* Show selected date info */}
-      {selected && (
+      {selectedDate && (
         <div className="mt-4 p-3 bg-gray-50 rounded-lg text-center text-sm">
           Selected:{" "}
-          {selected.toLocaleDateString("default", {
+          {selectedDate.toLocaleDateString("default", {
             weekday: "long",
             year: "numeric",
             month: "long",

@@ -1,10 +1,14 @@
+import Image from "next/image";
+
 export const LeftSide = () => {
   return (
     <section className="hidden md:flex flex-1 bg-[#FFF9E6] relative items-center justify-center p-12 overflow-hidden border-r border-outline-variant/10">
       <div className="max-w-md w-full text-center space-y-8 z-10">
         {/* Pulsing Visual Container */}
         <div className="flex justify-center transition-all duration-300">
-          <img
+          <Image
+            width={300}
+            height={300}
             alt="Appointly community scheduling flat vector illustration"
             className="w-[380px] h-auto object-contain transform hover:scale-[1.01] transition-transform duration-500"
             src="/images/signup-user-illustration.png"

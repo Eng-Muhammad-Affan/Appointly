@@ -1,6 +1,7 @@
 "use client";
 
 import { Lock, User, CalendarDays, Clock, Brush, Plus } from "lucide-react";
+import Image from "next/image";
 
 // Type definitions
 export type AppointmentStatus =
@@ -121,7 +122,9 @@ export default function AppointmentsPage() {
               <div className="flex flex-col md:flex-row justify-between gap-6">
                 <div className="flex gap-6">
                   <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0">
-                    <img
+                    <Image
+                      width={50}
+                      height={50}
                       alt={appointment.imageAlt}
                       className="w-full h-full object-cover"
                       src={appointment.imageUrl}

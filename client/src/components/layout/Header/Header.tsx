@@ -2,7 +2,7 @@
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { pagesNotAllowed } from "@/shared/constants";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
@@ -30,20 +30,28 @@ type ProfileData = InferSelectModel<typeof user> & {
 
 const Header = () => {
   const [navStatus, setNavStatus] = useState(false);
+  const { data } = authClient.useSession();
+
   const pathname = usePathname();
-  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const profileData = useMemo(() => {
+    if (data) {
+      return data.user;
+    } else {
+      return null;
+    }
+  }, [data]);
+  // const [profileData, setProfileData] = useState<ProfileData | null>(null);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { data } = await authClient.getSession();
-      if (data?.user) {
-        setProfileData(data.user as ProfileData);
-      }
-    };
+  // useEffect(() => {
+  //   const checkAuth = () => {
+  //     const { data } = authClient.useSession();
+  //     if (data) {
+  //       setProfileData(data.user as ProfileData);
+  //     }
+  //   };
 
-    checkAuth();
-    console.log();
-  }, []);
+  //   checkAuth();
+  // }, []);
 
   const isUser = !!profileData;
 
