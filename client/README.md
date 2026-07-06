@@ -9,27 +9,12 @@
 - [X] Render the view profile icon on header when the user is logged in .
 - [X] Complete the class based payment service .
 
-## Bugs :
-#### Invalid error message after login :
-**Details :** Login form is showing incorrect message `invalid email` even if the the provider has successfully entered the email and otp . Both email , password and otp are correct . 
-**Clue :** Error with status 400 is returned by api route  , so it maybe possible that a bug is on the server side rather than client .
-**Possible causes :** Incorrect error handling of the error on client side .
-
-#### Validation failure on provider login form :
-**Details :** Validation hasbeen failing in the provider login form , the email field is running race conditions which the password fields are permenently not showing any kind of validation . While otp form is working perfectly .
-**Clue :** Both provider and user signup form is using the same zod schema validation .
-**Possible causes :** The signup form is handling the validation and post request login in the custom hook called `use-login-form.ts`. There is possibility of data lost due to rerenders in state .
-
-#### Header profile icon :
-**Details :** If user has logged in from both account and provider account , when logged in from provider dashboard still showing the profile icon on header . While clicking on header redirects the user to /login-user . **No better auth cookie is present after logout from dashboard in browser** 
-
 ### Basic :
 - Implement a functionality to show the service views in dashboard . Update the count in database when service details s rendered .
 - Design thumbnail of project from stitch with google nano banana and attach it to root readme .
 - Test all api routes using bruno .
 - Remove auth related extra api routes and make sure to use better auth builtin methods .
 - Add proper error handling to all api calls routes . [Check this out](https://dev.to/riyon_sebastian/building-a-robust-frontend-error-handling-system-with-axios-and-custom-hooks-27k3)
-- Create a utility that returns the user's credentials from `authClient()`.
 - All a universal debugging logger .
 - Update the service details page to show all the metadata about service .
 - Update the cards component in account page to show meaningful data .
@@ -40,7 +25,6 @@
 - Implement appointment cancellation . `[MENTIONED]`
 - Notification push . `[MENTIONED]`
 - Acknowledgement feature through qr code .
-- UI polish . `[MENTIONED]`
 
 ### Intermediate :
 - Improve success and failure pages .

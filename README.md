@@ -1,3 +1,9 @@
+<center><img src="https://cdn.sanity.io/media-libraries/mlSOl1GFjO4N/images/containers/3G8oaEfkEYcF79eVGkCBsFhKsI8/desktop-3.jpg" width="700"/></center>
+
+<br>
+<br>
+
+
 ## Appointly | Appointments Management PlatForm :
 Appointly is a complete appointments management platform where business owners and service providers sell thier services and expand thier reach to thier potential clients . This application allows a provider list services , while clients can book thier appointments and check out best services from platform .
 

@@ -1,32 +1,17 @@
-Design complete frontend design system for the following platform .
-
 ## Overview | Appointly :
 **Appointly** is a appointments management platform where business owners and service providers sell their services and expand their reach to their potential clients . This application allows a provider list services , while clients can book their appointments and check out best services from platform .
 
 ## Technical Overview :
-#### Theme :
-Primary (Text/Structure): #000000 (Black)
-
-Secondary (Buttons/UI): #F6A7C1 (A softer, more pastel version of pink)
-
-Tertiary (Background): #FFF9E6 (A soft off-white/cream background)
-
-Accent (Calls to Action): #92e889 (Yellow - used sparingly)
-
-Extra Detail: #9B6B9E (A muted purple to bridge the pink and black)
-
 
 ## Implementation :
 
-Design all of the following pages listed below .
-
-### Design UI of service listing page `my_domain_name/services/`:
+### Service listing page `my_domain_name/services/`:
 - The application should have a feature to filter services on the basis of location , ratings and maximum trusted (according to completed appointments) .
 - Contains a search bar for searching the service by name .
 - Also user should be able to search using category buttons (All , Salons , Clinics etc) .
 - User should be navigated to `my_domain_name/services/[service_uuid]` on clicking the service card .
 
-### Design a service details page `my_domain_name/services/[uuid]`
+### Service details page `my_domain_name/services/[uuid]`
 
 - name: string
 - provider_name: string
@@ -52,33 +37,33 @@ Service details should also show the ratings of service .- It also show 1st 2 or
 - User should be able to click on the button with text "Book My Slot" , a modal will appear showing the data of selected slot and button with text "Proceed" 
 - after that user should be redirected to stripe checkout page for checkout where it will complete the payment and redirected to `/checkout/success` .  
 
-### Design Payment pages (`/payments/success`,`/payment/failed`): 
+### Payment pages (`/payments/success`,`/payment/failed`): 
 - Payment success page should show a image icon , with heading text and a button go to account which should redirect user to `/account` page .
 - Payment failure page .
 - Payment success page should show a image icon , with heading text and a go back button .
 
-### Design a login page `/login-user` :
+### Login page `/login-user` :
 - The page must contain a svg icon to enhance user experience so that user feels the vibe rather than a data entry form .
 - The form should contain field for email and password .
 - Show error messages above the field OR below the field if a field is failed to be validated .
 - A button for login .
 - A button for login with google .
 
-### Design a signup page `/signup-user` :
+### Signup page `/signup-user` :
 - The page must contain a svg icon to enhance user experience so that user feels the vibe rather than a data entry form .
 - The form should contain field for name , email and password .
 - Show error messages above the field OR below the field if a field is failed to be validated .
 - A button for signup .
 - A button for signup with google .
 
-### Design a signup page for service provider at (`/create-account`) :
+### Signup page for service provider at (`/create-account`) :
 - The page must contain a svg icon to enhance experience so that provider feels the vibe rather than a data entry form .
 - The form should contain field for name , email, password and a select box for country .
 - Show error messages above the field OR below the field if a field is failed to be validated .
 - A button with text `Continue` . On clicking the button , provider should be redirected to the stripe's customer onboarding page .
 
 
-### Design a login page for service provider at (`/login-provider`) :
+### Login page for service provider at (`/login-provider`) :
 - The page must contain a svg icon to enhance experience so that provider feels the vibe rather than a data entry form .
 - The form should contain field for email and password .
 - Show error messages above the field OR below the field if a field is failed to be validated .
@@ -97,7 +82,7 @@ Service details should also show the ratings of service .- It also show 1st 2 or
 - User can be able to change email and password through settings .
 - User can be able to delete its account through .
 
-### Design Provider dashboard (/dashboard):
+### Provider dashboard (/dashboard):
 - On Dashboard , a side bar should be present with following options .
 1. Appointments 
 2. Reschedules 
@@ -113,12 +98,6 @@ Service details should also show the ratings of service .- It also show 1st 2 or
 - On clicking the `Schedule` option on sidebar , user should be redirected to the `/dashboard/Schedule` page .
 - On sidebar , a button with text `Mark as complete` will be placed . On clicking this button , a modal will show with a QR code which should be scanned by user 
 
-# Constraints (MANDATORY):
-- Dont design the provider dashboard for now . Only design client side pages 
-- Always make sure that the design should be aligned with the theme of the application specified above .
-- Dont develop Landing page , and provider dashboard .
-- Dont write any kind of code . Only design the application .
-
 ## Deliverables (MANDATORY) :
 - Service listing page .
 - Service details page .
@@ -132,13 +111,3 @@ Service details should also show the ratings of service .- It also show 1st 2 or
 - 404 not found page .
 - All the above pages , each consisting of three screens , mobile , desktop and tablet .
 - All the screens should be aligned with the theme and vibe . Make sure nothing is incomplete .
-
-
-
-
------------------
-
-
-now please help me to identify the empty and vague instructions in this prompt that can cause the AI agents to hallucinate and when fixed ai should create complete application frontend completely . 
-
-also you are allowed to point out any missing feature that can cause this application to be incomplete .

@@ -22,31 +22,9 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-// import axios from "axios";
-// import { toast } from "sonner";
 
 const ServicesPage: React.FC = () => {
   const {services,selectService} = useDashboard()
-   
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     setLoading(true);
-  //     console.log("______ Running data fetches ...");
-  //     const { data, status } = await axios.get("/api/services");
-  //     const response = data;
-  //     console.log("Recieved Services :", response);
-  //     if (status !== 200) {
-  //       toast.error(response);
-  //     }
-
-  //     setServices(response);
-  //     setLoading(false);
-  //     console.log("______ Fetch Completed ...");
-  //   };
-
-  //   getData()
-  // },[])
-
   const [currentPage, setCurrentPage] = useState(1);
   const totalServices = 12;
   const servicesPerPage = 3;
