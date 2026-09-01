@@ -9,7 +9,7 @@ type Payload = Pick<
   "id" | "working_days" | "duration" | "start_time" | "end_time"
 >;
 
-type Fields = {
+type AppointmentColumns = {
   [K in keyof Partial<Appointment>]: boolean;
 };
 
@@ -22,11 +22,12 @@ interface Slot {
   token: number;
 }
 
-export async function GenerateSlots<K extends keyof Appointment>(
-  fields: Fields,
+export async function GenerateSlots<AppointmentKey extends keyof Appointment>(
+  _appointmentColumns: AppointmentColumns,
   payload: Payload,
-): Promise<Pick<Appointment, K>[]> {
+): Promise<Pick<Appointment, AppointmentKey>[]> {
   const { id, duration, working_days, start_time, end_time } = payload;
+  console.log("Recieved payload : ", payload);
 
   const daysAhead = 30;
   const slots: Slot[] = [];
@@ -73,22 +74,21 @@ export async function GenerateSlots<K extends keyof Appointment>(
     }
   }
 
-  let slotData: Pick<Appointment, K>[] = [];
+  let slotData: Pick<Appointment, AppointmentKey>[] = [];
 
   await db.transaction(async (tx) => {
     // Build returning selection dynamically
-    const returningFields = Object.keys(fields).reduce(
-      (acc, key) => {
-        acc[key as K] = appointment[key as K];
-        return acc;
-      },
-      {} as Record<K, any>,
-    );
+    // const returningFields = Object.keys(appointmentColumns).reduce(
+    //   (acc, key) => {
+    //     acc[key as AppointmentKey] = appointment[key as AppointmentKey];
+    //     return acc;
+    //   },
+    //   // biome-ignore lint/suspicious/noExplicitAny:required
+    //   {} as Record<AppointmentKey, any>,
+    // );
 
-    slotData = await tx
-      .insert(appointment)
-      .values(slots)
-      .returning(returningFields);
+    slotData = await tx.insert(appointment).values(slots);
+    // .returning(returningFields);
 
     await tx
       .update(service)

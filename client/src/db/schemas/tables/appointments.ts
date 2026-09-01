@@ -42,7 +42,12 @@ export const appointment = pgTable("appointments", {
 });
 
 export type Appointment = InferSelectModel<typeof appointment> & {
-  status: "PENDING" | "COMPLETED" | "CANCELLED" | "REQUESTED-RESCHEDULE";
+  status:
+    | "PENDING"
+    | "PAID"
+    | "COMPLETED"
+    | "CANCELLED"
+    | "REQUESTED-RESCHEDULE";
 };
 
 /*
@@ -51,6 +56,8 @@ slot_date: indicates the slot
 
 /**
  ** `PENDING` ----> user booked an appointment .
+ 
+ ** `PAID` ----> user paid for the appointment .
 
  **`REQUESTED-RESCHEDULE` ----> user wants to change its slot .
 

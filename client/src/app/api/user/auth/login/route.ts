@@ -20,7 +20,7 @@ export const POST = async (req: NextRequest) => {
       { status: 200 },
     );
 
-    // biome-ignore   lint/suspicious/noExplicitAny:dont need to explicitly declare entire type of NextResponse.
+    // biome-ignore lint/suspicious/noExplicitAny:dont need to explicitly declare entire type of NextResponse.
   } catch (err: any) {
     console.log(err);
 

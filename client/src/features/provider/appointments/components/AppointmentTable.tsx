@@ -2,14 +2,21 @@
 import type React from "react";
 import { AppointmentRow } from "./AppointmentRow";
 import { useDashboard } from "../../dashboard-service";
-import { useEffect } from "react";
+import { useMemo } from "react";
+import dayjs from "@/lib/dayjs";
 
 export const AppointmentTable: React.FC = () => {
-  const {selectedService} = useDashboard()
+  const { selectedService } = useDashboard();
 
-  useEffect(() => {
-    console.log(selectedService)
-  }, [selectedService])
+  // useEffect(() => {
+  //   console.log(selectedService)
+  // }, [selectedService])
+
+  const sortedAppointments = useMemo(() => {
+    return [...selectedService.appointments].sort((a, b) => {
+      return dayjs(a.start_time).isAfter(dayjs(b.start_time)) ? 1 : -1;
+    });
+  }, [selectedService.appointments]);
 
   return (
     <div className="overflow-x-auto">
@@ -23,13 +30,19 @@ export const AppointmentTable: React.FC = () => {
               Service
             </th>
             <th className="px-lg py-md font-label-bold text-label-bold text-on-surface-variant">
+              Slot no.
+            </th>
+            <th className="px-lg py-md font-label-bold text-label-bold text-on-surface-variant">
               Date & Time
             </th>
             <th className="px-lg py-md font-label-bold text-label-bold text-on-surface-variant">
-              Duration
+              Duration (min)
             </th>
-            <th className="px-lg py-md font-label-bold text-label-bold text-on-surface-variant">
-              Price
+            <th className="flex items-center  gap-2 px-lg py-md font-label-bold text-label-bold text-on-surface-variant">
+              Price{" "}
+              <span className="text-xs text-accent">
+                {selectedService.currency.toUpperCase()}
+              </span>
             </th>
             <th className="px-lg py-md font-label-bold text-label-bold text-on-surface-variant">
               Status
@@ -40,15 +53,14 @@ export const AppointmentTable: React.FC = () => {
           </tr>
         </thead>
         <tbody className="divide-y divide-outline-variant/20">
-          {selectedService.appointments.map((appointment, index) => (
+          {sortedAppointments.map((appointment) => (
             <AppointmentRow
-              key={index}
+              key={appointment.id}
               appointment={appointment}
               onView={() => console.log("View", appointment.customer_name)}
               onReschedule={() =>
                 console.log("Reschedule", appointment.customer_name)
               }
-              onCancel={() => console.log("Cancel", appointment.customer_name)}
               onRebook={() => console.log("Rebook", appointment.customer_name)}
             />
           ))}

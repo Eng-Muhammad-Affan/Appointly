@@ -8,10 +8,14 @@ import {
   Wallet,
   Settings,
   Plus,
+  CalendarSync,
+  UserStar,
 } from "lucide-react";
 import Image from "next/image";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
+import { useDashboard } from "../stores/use-dashboard";
+import { CompletionsButton } from "../../dashboard/CompletionButton";
 
 interface NavItem {
   icon: React.ReactNode;
@@ -21,32 +25,42 @@ interface NavItem {
 
 export const SideNavBar: React.FC = () => {
   const pathname = usePathname();
-  
-  const {id} = useParams()
-  
+
+  const { id } = useParams();
+
   const navigationItems: NavItem[] = [
-  {
-    icon: <LayoutDashboard size={20} />,
-    label: "Overview",
-    href: `/dashboard/${id}`,
-  },
-  {
-    icon: <CalendarCheck size={20} />,
-    label: "Appointments",
-    href: `/dashboard/${id}/appointments`,
-  },
-  // {
-  //   icon: <MessageSquare size={20} />,
-  //   label: "Messages",
-  //   href: `/dashboard/${id}/messages`,
-  // },
-  { icon: <Wallet size={20} />, label: "Wallet", href: `/dashboard/${id}/wallet` },
-  {
-    icon: <Settings size={20} />,
-    label: "Settings",
-    href: `/dashboard/${id}/settings`,
-  },
-];
+    {
+      icon: <LayoutDashboard size={20} />,
+      label: "Overview",
+      href: `/dashboard/${id}`,
+    },
+    {
+      icon: <CalendarCheck size={20} />,
+      label: "Appointments",
+      href: `/dashboard/${id}/appointments`,
+    },
+    {
+      icon: <CalendarSync size={20} />,
+      label: "Reschedules",
+      href: `/dashboard/${id}/reschedules`,
+    },
+    {
+      icon: <UserStar size={20} />,
+      label: "Reviews",
+      href: `/dashboard/${id}/reviews`,
+    },
+    {
+      icon: <Wallet size={20} />,
+      label: "Wallet",
+      href: `/dashboard/${id}/wallet`,
+    },
+    {
+      icon: <Settings size={20} />,
+      label: "Settings",
+      href: `/dashboard/${id}/settings`,
+    },
+  ];
+  const { user } = useDashboard();
 
   return (
     <aside className="hidden md:flex flex-col h-screen w-64 sticky left-0 top-0 bg-white py-6 px-4 border-r border-gray-200/20 z-50">
@@ -65,9 +79,7 @@ export const SideNavBar: React.FC = () => {
           />
         </div>
         <div>
-          <p className="font-semibold text-sm text-gray-900">
-            Appointly Provider
-          </p>
+          <p className="font-semibold text-sm text-gray-900">{user?.name}</p>
           <p className="text-xs text-gray-500">Managing Studio</p>
         </div>
       </div>
@@ -93,7 +105,8 @@ export const SideNavBar: React.FC = () => {
         })}
       </nav>
 
-      <div className="mt-auto px-4">
+      <div className="mt-auto px-4 space-y-2">
+        <CompletionsButton />
         <button
           type="button"
           className="w-full bg-black text-white font-semibold text-sm py-3 rounded-lg hover:opacity-90 transition-all flex items-center justify-center gap-2"

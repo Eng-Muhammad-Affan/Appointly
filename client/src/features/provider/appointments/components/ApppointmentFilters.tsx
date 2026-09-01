@@ -29,6 +29,7 @@ export const AppointmentFilters: React.FC<AppointmentFiltersProps> = ({
     <div className="flex flex-wrap items-center gap-sm mb-lg border-b border-outline-variant/30 pb-sm">
       {filters.map((filter) => (
         <button
+          type="button"
           key={filter.value}
           onClick={() => onFilterChange(filter.value)}
           className={cn(

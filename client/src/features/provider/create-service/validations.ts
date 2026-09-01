@@ -83,14 +83,14 @@ const AddServiceAPISchema = z
     const totalAvailableMinutes =
       endHour * 60 + endMin - (startHour * 60 + startMin);
 
-    if (totalAvailableMinutes <= 0) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "End time must be after start time",
-        path: ["end_time"],
-      });
-      return;
-    }
+    // if (totalAvailableMinutes <= 0) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: "End time must be after start time",
+    //     path: ["end_time"],
+    //   });
+    //   return;
+    // }
 
     // total possible appointments in a day (if capacity is 1)
     const maxPossibleAppointments =

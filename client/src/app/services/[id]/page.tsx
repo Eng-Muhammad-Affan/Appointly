@@ -26,7 +26,7 @@ const ServiceDetails = () => {
     service,
     setService,
     setSelectedSlot,
-    selectedSlot
+    selectedSlot,
   } = useServiceDetails();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const ServiceDetails = () => {
         getSlots(result);
       }
     }
-  }, [id]);
+  }, [id, fetchClientService, getSlots, services.find, setService]);
 
   const filteredSlots = useMemo(() => {
     // Log the actual type and value of slots
@@ -56,14 +56,12 @@ const ServiceDetails = () => {
     // }
 
     const year = selectedDate.getFullYear();
-    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-    const day = String(selectedDate.getDate()).padStart(2, '0');
+    const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
+    const day = String(selectedDate.getDate()).padStart(2, "0");
     const dateString = `${year}-${month}-${day}`;
 
-    return slots.filter(slot => slot.slot_date === dateString);
+    return slots.filter((slot) => slot.slot_date === dateString);
   }, [selectedDate, slots]);
-
-
 
   if (!service && loading) {
     return "Loading";
@@ -141,7 +139,11 @@ const ServiceDetails = () => {
               <h3 className="text-xl font-bold">What's Included</h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {service.details.map((detail, idx) => (
-                  <li className="flex items-center gap-3" key={idx}>
+                  <li
+                    className="flex items-center gap-3"
+                    // biome-ignore lint/suspicious/noArrayIndexKey:required
+                    key={idx}
+                  >
                     <CheckCircle
                       size={20}
                       className="text-accent fill-accent"
@@ -242,36 +244,46 @@ const ServiceDetails = () => {
 
             {/* Available Slots */}
             <div className="space-y-4 mb-8">
-              {filteredSlots.length <= 0 ? <h4 className="text-base font-bold">No Slots found</h4> : <>
-                <h4 className="text-base font-bold">Available Slots</h4>
-                <div className="space-y-2">
-                  {filteredSlots.map((slot, idx) => { 
-                    const start_time = formatDate(dayjs(slot.start_time).toDate(), "hh:mm A");
-                    const end_time = formatDate(dayjs(slot.end_time).toDate(), "hh:mm A");
+              {filteredSlots.length <= 0 ? (
+                <h4 className="text-base font-bold">No Slots found</h4>
+              ) : (
+                <>
+                  <h4 className="text-base font-bold">Available Slots</h4>
+                  <div className="space-y-2">
+                    {filteredSlots.map((slot) => {
+                      const start_time = formatDate(
+                        dayjs(slot.start_time).toDate(),
+                        "hh:mm A",
+                      );
+                      const end_time = formatDate(
+                        dayjs(slot.end_time).toDate(),
+                        "hh:mm A",
+                      );
 
-                    return (
-                      <div
-                      onClick={() => setSelectedSlot(slot)}
-                        className={`${selectedSlot && selectedSlot.id === slot.id ? "bg-accent": "bg-surface-container-low"} cursor-pointer flex items-center justify-between p-4 border-l-4 border-accent  rounded-lg`}
-                        key={idx}
-                      >
-                        <div>
-                          <div className="font-semibold">
-                            {start_time} - {end_time}
-                          </div>
-                          {/* <span className="text-[10px] bg-accent text-[#2D5A27] px-1.5 py-0.5 rounded-full font-bold flex items-center gap-1">
+                      return (
+                        //biome-ignore lint/a11y/useKeyWithClickEvents:required
+                        <div
+                          onClick={() => setSelectedSlot(slot)}
+                          className={`${selectedSlot && selectedSlot.id === slot.id ? "bg-accent" : "bg-surface-container-low"} cursor-pointer flex items-center justify-between p-4 border-l-4 border-accent  rounded-lg`}
+                          key={slot.id}
+                        >
+                          <div>
+                            <div className="font-semibold">
+                              {start_time} - {end_time}
+                            </div>
+                            {/* <span className="text-[10px] bg-accent text-[#2D5A27] px-1.5 py-0.5 rounded-full font-bold flex items-center gap-1">
                           <TrendingDown size={10} /> 20% Off
                         </span> */}
+                          </div>
+                          <span className="text-sm font-bold text-[#2D5A27]">
+                            {service.currency.toUpperCase()} {service.price}
+                          </span>
                         </div>
-                        <span className="text-sm font-bold text-[#2D5A27]">
-                          {service.currency.toUpperCase()} {service.price}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </>}
-
+                      );
+                    })}
+                  </div>
+                </>
+              )}
             </div>
 
             <BookingButton serviceName={service.name} />

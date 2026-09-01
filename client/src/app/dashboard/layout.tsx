@@ -1,10 +1,5 @@
-
-
 import type { Metadata } from "next";
-import {
-  FetchDashboardData,
-} from "@/features/provider/dashboard-service";
-
+import { FetchDashboardData } from "@/features/provider/dashboard-service";
 
 export const metadata: Metadata = {
   title: "Appointly dashboard",
@@ -16,9 +11,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <FetchDashboardData>
-      {children}
-    </FetchDashboardData>
-  );
+  return <FetchDashboardData>{children}</FetchDashboardData>;
 }

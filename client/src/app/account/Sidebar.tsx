@@ -65,6 +65,7 @@ const SideBar = () => {
       {/* Bottom Action */}
       <div className="mt-auto pt-6">
         <button
+          type="button"
           className="w-full flex items-center gap-4 px-4 py-2 rounded-lg text-[#E74C3C] hover:bg-red-50 transition-colors font-semibold"
           onClick={async () => {
             await authClient.signOut();

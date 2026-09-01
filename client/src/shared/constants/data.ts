@@ -7,7 +7,7 @@ export const days = [
   "SATURDAY",
   "SUNDAY",
 ];
-const pageNotAllowedRegex = /(dashboard|account)/ 
+const pageNotAllowedRegex = /(dashboard|account)/;
 
 const TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
 

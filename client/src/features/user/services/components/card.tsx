@@ -3,10 +3,7 @@ import type { ClientService } from "../types";
 import Image from "next/image";
 import Link from "next/link";
 
-export const Card = ({
-  service
-}: {
-  service: ClientService}) => {
+export const Card = ({ service }: { service: ClientService }) => {
   return (
     <div className="group relative bg-surface-container-lowest rounded-xl p-4 border border-transparent transition-all card-hover custom-shadow overflow-hidden flex flex-col h-full">
       <div className="relative h-48 mb-4 overflow-hidden rounded-lg">

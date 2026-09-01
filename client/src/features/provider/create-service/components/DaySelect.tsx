@@ -1,10 +1,7 @@
-"use client"
+"use client";
 import { days } from "@/shared/constants/data";
 
-import {
-  useFormContext,
-  Controller,
-} from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import type { FormValues } from "../types";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +10,10 @@ export const DaySelect = () => {
 
   return (
     <div className="mb-lg">
-      <label className="block font-label-bold text-label-bold mb-md text-on-surface-variant">
+      <label
+        className="block font-label-bold text-label-bold mb-md text-on-surface-variant"
+        htmlFor={"working_days"}
+      >
         Working days
       </label>
       <Controller

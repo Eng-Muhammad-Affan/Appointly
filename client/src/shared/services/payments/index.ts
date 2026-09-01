@@ -22,6 +22,11 @@ export class PaymentService {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
   }
 
+  async BookingCheckout() {
+    try {
+    } catch (_err) {}
+  }
+
   // ____ For creating provider's express account on stripe ...
   async CreateProviderAccount({
     email,
@@ -49,6 +54,7 @@ export class PaymentService {
       };
 
       return response;
+      // biome-ignore lint/suspicious/noExplicitAny:required
     } catch (err: any) {
       const response = {
         message: err.message,
@@ -112,6 +118,7 @@ export class PaymentService {
         message: "Account Linked successfully",
         url: accountLink.url,
       };
+      // biome-ignore lint/suspicious/noExplicitAny:required
     } catch (err: any) {
       console.error("\n❌❌❌ ONBOARDING LINK FAILED ❌❌❌");
       console.error("Error details:", {

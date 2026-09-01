@@ -57,6 +57,7 @@ export const POST = async (req: NextRequest) => {
         );
       }
     }
+    // biome-ignore lint/suspicious/noExplicitAny:dont need to explicitly declare entire type of NextResponse.
   } catch (err: any) {
     // Log the full error for debugging
     console.error("[Auth Error]:", {

@@ -26,6 +26,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       </span>
       <div className="flex items-center gap-2">
         <button
+          type="button"
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
           className="p-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
@@ -36,6 +37,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         {pages.map((page) => (
           <button
             key={page}
+            type="button"
             onClick={() => onPageChange(page)}
             className={cn(
               "w-8 h-8 flex items-center justify-center rounded-lg font-semibold text-sm transition-all",
@@ -49,6 +51,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         ))}
 
         <button
+          type="button"
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           className="p-2 hover:bg-gray-100 rounded-lg text-gray-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"

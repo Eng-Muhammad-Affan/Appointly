@@ -1,7 +1,11 @@
 // components/appointments/AppointmentStatus.tsx
 import { cn } from "@/lib/utils";
 
-export type AppointmentStatusType = "PENDING" | "COMPLETED" | "CANCELLED" | "REQUESTED-RESCHEDULE"
+export type AppointmentStatusType =
+  | "PENDING"
+  | "COMPLETED"
+  | "CANCELLED"
+  | "REQUESTED-RESCHEDULE";
 
 const statusStyles: Record<AppointmentStatusType, string> = {
   "REQUESTED-RESCHEDULE": "bg-accent-success/20 text-[#2d6a4f]",
@@ -11,8 +15,10 @@ const statusStyles: Record<AppointmentStatusType, string> = {
 };
 
 export const AppointmentStatus = ({
-  status
-}:{status:AppointmentStatusType}) => {
+  status,
+}: {
+  status: AppointmentStatusType;
+}) => {
   return (
     <span
       className={cn(

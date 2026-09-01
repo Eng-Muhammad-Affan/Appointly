@@ -6,8 +6,6 @@ import { useMemo, useState } from "react";
 import { pageNotAllowedRegex } from "@/shared/constants";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
-import type { InferSelectModel } from "drizzle-orm";
-import type { user } from "@/db/schemas";
 
 const links = [
   {

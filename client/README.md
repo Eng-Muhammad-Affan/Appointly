@@ -1,4 +1,3 @@
-
 ### Completed :
 - [X] Show today’s schedule in calender in dashboard.
 - [X] Complete the slot regeneration .
@@ -9,18 +8,7 @@
 - [X] Render the view profile icon on header when the user is logged in .
 - [X] Complete the class based payment service .
 
-### Basic :
-- Implement a functionality to show the service views in dashboard . Update the count in database when service details s rendered .
-- Design thumbnail of project from stitch with google nano banana and attach it to root readme .
-- Test all api routes using bruno .
-- Remove auth related extra api routes and make sure to use better auth builtin methods .
-- Add proper error handling to all api calls routes . [Check this out](https://dev.to/riyon_sebastian/building-a-robust-frontend-error-handling-system-with-axios-and-custom-hooks-27k3)
-- All a universal debugging logger .
-- Update the service details page to show all the metadata about service .
-- Update the cards component in account page to show meaningful data .
-- on dashboards Create cards for total earnings this month , a side div for any popup
-- Number of appointments per week/month.
-- No-shows, cancellations, revenue earned. 
+### Basic : 
 - Add a refund logic for cancelled appointments [see more details in this document] (./IMPROVEMENTS.Preadmd)
 - Implement appointment cancellation . `[MENTIONED]`
 - Notification push . `[MENTIONED]`

@@ -19,12 +19,14 @@ import {
 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import {
-  FormProvider,
-  useForm
-} from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
-import { AddServiceAPISchema , FormValues , SelectBoxCreateService , DaySelect} from "@/features/provider/create-service";
+import {
+  AddServiceAPISchema,
+  type FormValues,
+  SelectBoxCreateService,
+  DaySelect,
+} from "@/features/provider/create-service";
 import { serviceCategories } from "@/shared/constants";
 import Image from "next/image";
 import { Input } from "@/components/common";
@@ -173,7 +175,7 @@ const ServiceCreationPage: React.FC = () => {
 
       toast.success(result.message);
       addService(result.service);
-      router.push("/dashboard/services");
+      router.push("/dashboard");
     } catch (error) {
       toast.error("Failed to create service. Please try again.");
       console.error(error);
@@ -216,10 +218,10 @@ const ServiceCreationPage: React.FC = () => {
 
   const allCompleted = checklistItems.every((item) => item.completed);
 
-  // useEffect(() => {
-  //   console.log(errors)
-  //   // console.log(getValues())
-  // }, [errors])
+  useEffect(() => {
+    console.log(errors);
+    // console.log(getValues())
+  }, [errors]);
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
@@ -241,6 +243,7 @@ const ServiceCreationPage: React.FC = () => {
                     />
 
                     <SelectBoxCreateService
+                      type="string"
                       label="Category"
                       options={serviceCategories}
                       name="category"
@@ -365,6 +368,7 @@ const ServiceCreationPage: React.FC = () => {
                       type="number"
                     />
                     <SelectBoxCreateService
+                      type="number"
                       label="Cancellation policy"
                       options={[
                         {
@@ -426,8 +430,11 @@ const ServiceCreationPage: React.FC = () => {
                       </span>
                     </div>
                     <div className="space-y-md mb-lg">
-                      {checklistItems.map((item, index) => (
-                        <div key={index} className="flex items-center gap-md">
+                      {checklistItems.map((item) => (
+                        <div
+                          key={item.label}
+                          className="flex items-center gap-md"
+                        >
                           <div
                             className={cn(
                               "w-6 h-6 rounded-full flex items-center justify-center",

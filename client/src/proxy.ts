@@ -5,7 +5,6 @@ import { auth } from "./lib/auth";
 
 // 1. MUST be a default export for the Proxy feature
 export default async function proxy(request: NextRequest) {
-  console.log("Running middleware ...");
   const { pathname } = request.nextUrl;
 
   // 2. MANUAL MATCHER: Define which routes this proxy should care about

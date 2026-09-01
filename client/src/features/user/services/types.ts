@@ -2,13 +2,13 @@ import type { Service } from "@/db/schemas";
 
 // ______ Type of appointment in all user facing pages ...
 type AppointmentClient = {
-  id:string;
-  service_id:string;
-  start_time:string;
-  end_time:string;
-  token:number;
-  slot_date:string;
-  booked:boolean;
+  id: string;
+  service_id: string;
+  start_time: string;
+  end_time: string;
+  token: number;
+  slot_date: string;
+  booked: boolean;
 };
 
 type ClientService = Omit<

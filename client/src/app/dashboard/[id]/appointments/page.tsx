@@ -2,7 +2,12 @@
 // pages/appointments.tsx (or app/appointments/page.tsx for App Router)
 import type React from "react";
 import { useState } from "react";
-import { AppointmentFilters, AppointmentTable, InsightCards, Pagination } from "@/features/provider/appointments";
+import {
+  AppointmentFilters,
+  AppointmentTable,
+  InsightCards,
+  Pagination,
+} from "@/features/provider/appointments";
 
 const AppointmentsPage: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState("all");

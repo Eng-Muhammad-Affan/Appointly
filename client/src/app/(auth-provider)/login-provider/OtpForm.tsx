@@ -49,11 +49,18 @@ export const OTPForm = () => {
         <form className="space-y-4">
           {/* OTP Input */}
           <div className="space-y-3">
-            <label className="block font-label-bold text-label-bold text-on-surface-variant">
+            <label
+              className="block font-label-bold text-label-bold text-on-surface-variant"
+              htmlFor="input-otp"
+            >
               Verification Code
             </label>
             <div className="flex justify-center md:justify-start">
-              <InputOTP maxLength={6} onChange={(e) => setOTP(e)}>
+              <InputOTP
+                maxLength={6}
+                onChange={(e) => setOTP(e)}
+                id="input-otp"
+              >
                 <div className="flex items-center gap-2 md:gap-3">
                   <InputOTPGroup className="flex gap-2">
                     <InputOTPSlot
@@ -106,6 +113,7 @@ export const OTPForm = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                 >
+                  <title>Loading</title>
                   <circle
                     className="opacity-25"
                     cx="12"

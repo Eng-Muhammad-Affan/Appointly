@@ -10,10 +10,10 @@ import {
 
 const ServicesPage = () => {
   const {
-    searchTerm,
-    setSearchTerm,
-    activeCategory,
-    setActiveCategory,
+    // searchTerm,
+    // setSearchTerm,
+    // activeCategory,
+    // setActiveCategory,
     filteredServices,
   } = useServiceFilter();
 
@@ -118,8 +118,8 @@ const ServicesPage = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           id="service-grid"
         >
-          {filteredServices.map((service, idx) => (
-            <Card key={idx} service={service} />
+          {filteredServices.map((service) => (
+            <Card key={service.id} service={service} />
           ))}
         </div>
 

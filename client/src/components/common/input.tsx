@@ -1,5 +1,3 @@
-/* This component cannot be used when validation is handled manually instead of react hook form */
-
 "use client";
 
 import * as React from "react";
@@ -46,19 +44,29 @@ export default function Input({
 
   const fieldState = getFieldState(name, formState);
 
-  const { error, isDirty, isTouched, invalid } = fieldState;
+  const { error } = fieldState;
 
-  // React.useEffect(() => {
-  //   console.log(`------ ${name} ------`);
-  //   console.log("Value:", value);
-  //   console.log("Error:", error);
-  //   console.log("Dirty:", isDirty);
-  //   console.log("Touched:", isTouched);
-  //   console.log("Invalid:", invalid);
-  //   console.log("----------------------");
-  // }, [value, error, isDirty, isTouched, invalid, name]);
+  React.useEffect(() => {
+    console.log(`------ ${name} ------`);
+    console.log("Value:", _value);
+    console.log("Error:", error);
+    console.log("Dirty:", formState.isDirty);
+    // console.log("Touched:", isTouched);
+    // console.log("Invalid:", invalid);
+    console.log("----------------------");
+  }, [_value, error, formState.isDirty, name]);
 
   const field = register(name);
+
+  const fieldParams: Record<string, boolean | string> = {};
+  switch (type) {
+    case "number":
+      fieldParams.valueAsNumber = true;
+      break;
+    case "date":
+      fieldParams.valueAsDate = true;
+      break;
+  }
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -126,7 +134,7 @@ export default function Input({
         )}
 
         <input
-          {...field}
+          {...register(name, fieldParams)}
           id={name}
           type={inputType}
           disabled={disabled}

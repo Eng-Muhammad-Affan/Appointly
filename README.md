@@ -1,7 +1,6 @@
 <center><img src="https://cdn.sanity.io/media-libraries/mlSOl1GFjO4N/images/containers/3G8oaEfkEYcF79eVGkCBsFhKsI8/desktop-3.jpg" width="700"/></center>
 
 <br>
-<br>
 
 
 ## Appointly | Appointments Management PlatForm :

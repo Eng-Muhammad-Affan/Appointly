@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { Lock, User, CalendarDays, Clock, Brush, Plus } from "lucide-react";
 import Image from "next/image";
@@ -169,13 +169,22 @@ export default function AppointmentsPage() {
                   <div className="flex flex-wrap gap-2">
                     {appointment.status === "confirmed" && (
                       <>
-                        <button className="px-4 py-2 rounded-lg bg-secondary text-black font-semibold text-sm hover:opacity-90 transition-opacity">
+                        <button
+                          type="button"
+                          className="px-4 py-2 rounded-lg bg-secondary text-black font-semibold text-sm hover:opacity-90 transition-opacity"
+                        >
                           Book Again
                         </button>
-                        <button className="px-4 py-2 rounded-lg border border-outline text-on-surface font-semibold text-sm hover:bg-surface transition-colors">
+                        <button
+                          type="button"
+                          className="px-4 py-2 rounded-lg border border-outline text-on-surface font-semibold text-sm hover:bg-surface transition-colors"
+                        >
                           Request Reschedule
                         </button>
-                        <button className="px-4 py-2 rounded-lg text-red-600 font-semibold text-sm hover:bg-red-50 transition-colors">
+                        <button
+                          type="button"
+                          className="px-4 py-2 rounded-lg text-red-600 font-semibold text-sm hover:bg-red-50 transition-colors"
+                        >
                           Cancel
                         </button>
                       </>
@@ -183,10 +192,16 @@ export default function AppointmentsPage() {
 
                     {appointment.status === "payment_held" && (
                       <>
-                        <button className="px-4 py-2 rounded-lg border border-outline text-on-surface font-semibold text-sm hover:bg-surface transition-colors">
+                        <button
+                          type="button"
+                          className="px-4 py-2 rounded-lg border border-outline text-on-surface font-semibold text-sm hover:bg-surface transition-colors"
+                        >
                           Manage Payment
                         </button>
-                        <button className="px-4 py-2 rounded-lg text-on-surface-variant font-semibold text-sm hover:bg-surface transition-colors">
+                        <button
+                          type="button"
+                          className="px-4 py-2 rounded-lg text-on-surface-variant font-semibold text-sm hover:bg-surface transition-colors"
+                        >
                           Details
                         </button>
                       </>
@@ -210,7 +225,10 @@ export default function AppointmentsPage() {
             <p className="text-sm text-on-surface-variant mb-4">
               Discover top-rated professionals in your area.
             </p>
-            <button className="bg-secondary text-black px-6 py-2 rounded-lg font-semibold hover:opacity-90">
+            <button
+              type="button"
+              className="bg-secondary text-black px-6 py-2 rounded-lg font-semibold hover:opacity-90"
+            >
               Explore Marketplace
             </button>
           </div>
@@ -229,7 +247,10 @@ export default function AppointmentsPage() {
                 <div className="w-8 h-8 rounded-full border-2 border-primary bg-tertiary"></div>
                 <div className="w-8 h-8 rounded-full border-2 border-primary bg-accent"></div>
               </div>
-              <button className="text-secondary font-semibold hover:underline">
+              <button
+                type="button"
+                className="text-secondary font-semibold hover:underline"
+              >
                 View Benefits
               </button>
             </div>

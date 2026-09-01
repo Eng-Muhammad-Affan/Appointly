@@ -1,142 +1,186 @@
 import Stripe from "stripe";
 import db from "@/db";
-import { appointment, service } from "@/db/schemas";
-import { v4 } from "uuid";
+import { appointment, service, user } from "@/db/schemas";
 import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
-import z from "zod";
-import { BookingSchema } from "@/features/user/service-details";
+import type z from "zod";
+import type { BookingSchema } from "@/features/user/service-details";
+import { v4 as uuidv4 } from "uuid";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 const urls = {
-  success: `https://${process.env.NEXT_PUBLIC_APP_URL}/checkout/success`,
-  failed: `https://${process.env.NEXT_PUBLIC_APP_URL}/checkout/failed`,
+  success: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success`,
+  failed: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/failed`,
 };
 
-// ____ Function for getting service name ...
-const GetServiceDetails = async (service_id: string) => {
-  const [requiredService] = await db
-    .select({
-      id: service.id,
-      name: service.name,
-      currency: service.currency,
-      price: service.price,
-    })
-    .from(service)
-    .where(eq(service.id, service_id));
-  return {
-    service_name: requiredService.name,
-    service_id: requiredService.id,
-    service_currency: requiredService.currency,
-    service_price: requiredService.price,
-  };
-};
+type FormData = z.infer<typeof BookingSchema>;
 
 interface PivotObject {
-  transfer_group: string;
   service_name: string;
   service_id: string;
   service_currency: string;
   service_price: number;
+  stripe_account_id: string;
 }
 
-type FormData = z.infer<typeof BookingSchema>;
-
 export const POST = async (req: NextRequest) => {
-  const formData: FormData = await req.json();
-  /*
-  Attached multiple trycatch blocks for effective error handling ...
-  */
- console.log(urls)
-  console.log("-------------- Get formData -------------- : ");
-  console.log(formData);
-  // ____ For storing data from different blocks ...
-  const pivot: PivotObject = {
-    service_name: "",
-    transfer_group: "",
-    service_currency: "",
-    service_id: "",
-    service_price: 0,
-  };
-  console.log("-------------- Iniatlized pivot -------------- : ");
-  console.log(pivot);
   try {
-    console.log("-------------- allocating slot -------------- : ");
-    const [requiredSlot] = await db
-      .update(appointment)
-      .set({
-        booked: true,
-        customer_name: formData.customer_name,
-        customer_email: formData.customer_email,
-        transfer_group: `appointment_${v4()}`,
-      })
-      .where(eq(appointment.id, formData.id))
-      .returning();
+    const formData: FormData = await req.json();
 
-    console.log("-------------- Allocated successfully -------------- : ");
-    console.log(requiredSlot);
+    const pivot: PivotObject = {
+      service_name: "",
+      service_id: "",
+      service_currency: "",
+      service_price: 0,
+      stripe_account_id: "",
+    };
 
-    console.log("-------------- Fetching service name -------------- : ");
-    const serviceDetails = await GetServiceDetails(formData.service_id);
-    console.log("-------------- service details -------------- : ");
-    console.log(serviceDetails);
-    // ____ Manipulate globally ...
-    pivot.transfer_group = requiredSlot.transfer_group || "";
-    pivot.service_name = serviceDetails.service_name;
-    pivot.service_currency = serviceDetails.service_currency;
-    pivot.service_price = serviceDetails.service_price;
-    pivot.service_id = serviceDetails.service_id;
-    console.log("-------------- Updated pivot -------------- : ");
-    console.log(pivot);
-  } catch (err) {
-    console.log("-------------- An error occured -------------- : ");
-    console.log(err);
-    return NextResponse.json(
-      {
-        message: "Error while booking appointment",
-      },
-      { status: 500 },
-    );
-  }
+    await db.transaction(async (tx) => {
+      //  1. Get appointment
 
-  // _____ Create Checkout Session (customer pays into platform account) ...
-  try {
-    console.log("-------------- Creating checkout -------------- : ");
-    console.log("-------------- Checking Pivot -------------- : ");
-    console.log(pivot);
+      const [appointmentData] = await tx
+        .select()
+        .from(appointment)
+        .where(eq(appointment.id, formData.id))
+        .limit(1);
+
+      if (!appointmentData) {
+        return NextResponse.json(
+          { message: "Appointment not found" },
+          { status: 404 },
+        );
+      }
+
+      // _____ 2. Check whether appointment is already booked
+      if (appointmentData.booked) {
+        return NextResponse.json(
+          {
+            message: "Slot is not available. Please select another one",
+          },
+          { status: 409 },
+        );
+      }
+
+      //  3. Get service
+      const [serviceData] = await tx
+        .select({
+          id: service.id,
+          name: service.name,
+          currency: service.currency,
+          price: service.price,
+          user_id: service.user_id,
+        })
+        .from(service)
+        .where(eq(service.id, formData.service_id))
+        .limit(1);
+
+      if (!serviceData) {
+        return NextResponse.json(
+          { message: "Service not found" },
+          { status: 404 },
+        );
+      }
+
+      const [requiredProviderAccount] = await tx
+        .select()
+        .from(user)
+        .where(eq(user.id, serviceData.user_id));
+
+      if (!requiredProviderAccount) {
+        return NextResponse.json(
+          {
+            message: "Service provider is not connected to Stripe",
+          },
+          { status: 400 },
+        );
+      } else if (!requiredProviderAccount.stripe_account_id) {
+        return NextResponse.json(
+          {
+            message: "Service provider is not connected to Stripe",
+          },
+          { status: 400 },
+        );
+      } else {
+        pivot.service_id = serviceData.id;
+        pivot.service_name = serviceData.name;
+        pivot.service_price = serviceData.price;
+        pivot.service_currency = serviceData.currency;
+        pivot.stripe_account_id = requiredProviderAccount.stripe_account_id;
+      }
+    });
+
+    // 4. Generate transfer group
+    const transferGroup = `appointment_${uuidv4()}`;
+
+    // 5. Create Checkout Session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
       mode: "payment",
+
+      payment_method_types: ["card"],
+
       customer_email: formData.customer_email,
+
+      client_reference_id: formData.id,
+
+      /*
+       * IMPORTANT:
+       * Use transferGroup everywhere, not transfer_group.
+       */
+      metadata: {
+        appointmentId: formData.id,
+        customerName: formData.customer_name,
+        customerEmail: formData.customer_email,
+        transferGroup,
+        serviceId: pivot.service_id,
+        connectedAccountId: pivot.stripe_account_id,
+      },
+
       line_items: [
         {
           price_data: {
             currency: pivot.service_currency.toLowerCase(),
+
             product_data: {
               name: `Appointment for ${pivot.service_name}`,
             },
-            unit_amount: pivot.service_price * 100,
+
+            unit_amount: Math.round(pivot.service_price * 100),
           },
+
           quantity: 1,
         },
       ],
+
       success_url: urls.success,
       cancel_url: urls.failed,
-      metadata: {
-        appointment_id: formData.id,
-        transfer_group: pivot.transfer_group,
+
+      /*
+       * This creates a PaymentIntent on your PLATFORM account.
+       *
+       * transfer_group allows you to associate the eventual
+       * Stripe Transfer with this payment.
+       */
+      payment_intent_data: {
+        transfer_group: transferGroup,
+
+        metadata: {
+          appointmentId: formData.id,
+          serviceId: pivot.service_id,
+          transferGroup,
+          connectedAccountId: pivot.stripe_account_id,
+        },
       },
     });
-    console.log("-------------- Checkout completed -------------- : ");
-    console.log(session);
+
+    // 6. Return Checkout URL
     return NextResponse.json({
-      url: session.url || "",
+      url: session.url,
       message: "Redirecting to checkout",
     });
-  } catch (err) {
-    console.log("-------------- An error occured -------------- : ");
-    console.log(err);
+  } catch (error) {
+    console.error("Checkout creation error:", error);
+
     return NextResponse.json(
       {
         message: "Error in creating payment",

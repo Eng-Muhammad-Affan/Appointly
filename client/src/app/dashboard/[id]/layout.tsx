@@ -1,5 +1,4 @@
 import {
-  FetchDashboardData,
   BottomNavBar,
   SideNavBar,
   TopNavBar,
@@ -19,17 +18,17 @@ export default function RootLayout({
 }>) {
   return (
     // <FetchDashboardData>
-      <div className="flex min-h-screen">
-        <SideNavBar />
+    <div className="flex min-h-screen">
+      <SideNavBar />
 
-        <div className="flex-1 flex flex-col min-w-0">
-          <TopNavBar title="Appointments" />
+      <div className="flex-1 flex flex-col min-w-0">
+        <TopNavBar title="Appointments" />
 
-          <main className="flex-1 p-4 md:p-8 max-w-7xl w-full">{children}</main>
-        </div>
-
-        <BottomNavBar />
+        <main className="flex-1 p-4 md:p-8 max-w-7xl w-full">{children}</main>
       </div>
+
+      <BottomNavBar />
+    </div>
     // </FetchDashboardData>
   );
 }

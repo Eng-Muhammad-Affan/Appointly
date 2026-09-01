@@ -8,7 +8,7 @@ import { create } from "zustand";
 
 type ServiceDetailsState = {
   selectedSlot: AppointmentClient | null;
-  setSelectedSlot: (slot:AppointmentClient) => void;
+  setSelectedSlot: (slot: AppointmentClient) => void;
   selectedDate: Date;
   setSelectedDate: (date: Date) => void;
   service: ClientService | null;
@@ -19,24 +19,25 @@ type ServiceDetailsState = {
 };
 
 export const useServiceDetails = create<ServiceDetailsState>((set) => ({
-  selectedSlot:null,
- 
-  setSelectedSlot:(slot) => set({
-    selectedSlot:slot
-  }),
- 
+  selectedSlot: null,
+
+  setSelectedSlot: (slot) =>
+    set({
+      selectedSlot: slot,
+    }),
+
   selectedDate: dayjs().toDate(),
- 
+
   setSelectedDate: (date) =>
     set(() => ({
       selectedDate: date,
     })),
- 
-    service: null,
- 
-    slots: [],
- 
-    setService: (service) =>
+
+  service: null,
+
+  slots: [],
+
+  setService: (service) =>
     set(() => ({
       service: service,
     })),
