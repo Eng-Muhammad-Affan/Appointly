@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import LogoutButton from "./LogoutButton";
 
 export const AccountActions = () => {
   return (
@@ -46,6 +47,19 @@ export const AccountActions = () => {
             >
               Delete Account
             </Button>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div>
+              <h4 className="font-medium text-manzarri-black">
+                Manage sessions
+              </h4>
+              <p className="text-sm text-manzarri-black/70">
+                Logout from this device
+              </p>
+            </div>
+            <LogoutButton/>
+           
           </div>
         </div>
       </div>

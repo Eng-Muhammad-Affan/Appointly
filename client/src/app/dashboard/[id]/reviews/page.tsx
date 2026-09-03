@@ -164,6 +164,8 @@ const ReviewsPage = () => {
                 <div className="flex flex-col md:flex-row md:items-start gap-lg">
                   <div className="flex-shrink-0">
                     <Image
+                    width={100}
+                    height={100}
                       className="w-12 h-12 rounded-full object-cover"
                       alt="A portrait of a satisfied female client in a modern, brightly lit apartment. Her expression is genuinely happy, reflecting a high-quality service experience. The soft, natural lighting and minimalist background align with the premium brand aesthetic of Appointly."
                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVuGsMzqsug6OtzZaPfmwnBFm7L1s_r1mLiMeuKvv-ulFZh2RiD6vXtoCu-tNi2LB3-GIDwjImZgu4-BTZeBvOt6lbvAQYqeBEwZgRs3ZvsIo3aO4YAV7jS6CG4mjwhpqUX6gGxm61DnEnPLcQc1LXyo1vhCIHrtOal7cmz7lFoncr4o0m_ngO6n5SXsK1Kdh90-4kJTiBNt5JRSQeEfNV_WwPGFQtS7orurCKcN7-wax7_WY7rDGJRDtG7onc2OqvNEiw0T3zJdRU"

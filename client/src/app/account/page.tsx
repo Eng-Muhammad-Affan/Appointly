@@ -3,11 +3,10 @@ import ProfileData from "./ProfileData";
 import RecentAppointments from "./RecentAppointments";
 import QuickStats from "./QuickStats";
 import QuickActions from "./QuickActions";
-import UpcomingAppointments from "./UpcomingAppointments";
 
 export default function UserProfile() {
   return (
-    <div className="min-h-screen bg-manzarri-white">
+    <div className="py-10 min-h-screen bg-manzarri-white">
       {/* Header */}
       <ProfileData />
       <div className="container mx-auto px-4">

@@ -7,7 +7,6 @@ import {
   Clock, 
   MapPin, 
   User, 
-  Loader2,
   ChevronRight,
   Plus
 } from "lucide-react";

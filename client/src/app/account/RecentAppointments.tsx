@@ -43,7 +43,7 @@ const RecentAppointments = () => {
         </div>
       </div>
       <div className="px-6">
-        <div className="">
+        <div className="flex flex-col gap-2">
           {appointments.slice(0, 2).map((appointment) => (
             <div
               key={appointment.id}
