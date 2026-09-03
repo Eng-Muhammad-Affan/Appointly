@@ -7,7 +7,7 @@ const QuickStats = () => {
   const {appointments, completedAppointments, cancelledAppointments} = useProfile()
 
   const quickStats = [
-    { label: "Upcoming", value: 2, icon: Calendar, color: "text-[var(--color-secondary-dark)]" },
+    { label: "Upcoming", value: appointments.length, icon: Calendar, color: "text-[var(--color-secondary-dark)]" },
     { label: "Completed", value: completedAppointments.length, icon: CheckCircle, color: "text-[var(--color-accent-success)]" },
     { label: "Cancelled", value: cancelledAppointments.length, icon: XCircle, color: "text-[var(--color-error)]" },
     { label: "Reschedules", value: 20, icon: Package, color: "text-[var(--color-muted)]" },

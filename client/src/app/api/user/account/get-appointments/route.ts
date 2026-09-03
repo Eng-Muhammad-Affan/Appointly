@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 import db from "@/db";
 import { appointment } from "@/db/schemas";
-import { eq, and, gte } from "drizzle-orm";
+import { eq, and, gte, or, lte } from "drizzle-orm";
 import type { AppointmentProfile } from "@/features/user/account";
 import dayjs from "dayjs";
 
@@ -13,7 +13,11 @@ export const POST = async (req: NextRequest) => {
     const appointments = await db.query.appointment.findMany({
       where: and(
         eq(appointment.customer_email, email),
-        gte(appointment.start_time, dayjs().toDate()),
+        or(
+          gte(appointment.start_time, dayjs().toDate()),
+          lte(appointment.start_time, dayjs().toDate()),
+        ),
+        gte(appointment.end_time, dayjs().toDate()),
         eq(appointment.booked, true),
       ),
       columns: {
