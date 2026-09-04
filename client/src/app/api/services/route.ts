@@ -1,10 +1,20 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import db from "@/db";
 import { user, service, appointment } from "@/db/schemas";
-import { eq, and } from "drizzle-orm";
+import { eq, and, ilike } from "drizzle-orm";
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
+
+  const params = req.nextUrl.searchParams;
+  const searchQuery = params.get("query");
+
   try {
+    const isSearchParamsPresent = searchQuery && searchQuery.trim() !== "";
+    const whereConditions = [eq(service.is_active, true)];
+    if (isSearchParamsPresent) {
+      whereConditions.push(ilike(service.name, `%${searchQuery}%`))
+    }
+
     const services = await db
       .select({
         // Service fields
@@ -39,7 +49,7 @@ export const GET = async () => {
         userName: user.name,
       })
       .from(service)
-      .where(eq(service.is_active, true))
+      .where(and(...whereConditions))
       .leftJoin(user, eq(service.user_id, user.id));
 
     return NextResponse.json(services, { status: 200 });

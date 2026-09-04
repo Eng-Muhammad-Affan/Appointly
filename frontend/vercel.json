@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/cpanel",
+      "destination": "https://techwagera.pk/cpanel"
+    },
+    {
+      "source": "/cpanel/(.*)",
+      "destination": "https://techwagera.pk/cpanel/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
