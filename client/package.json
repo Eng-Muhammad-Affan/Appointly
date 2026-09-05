@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack -H 0.0.0.0",
+    "build": "next build --turbopack",
     "start": "next start",
     "lint": "biome check --max-diagnostics=400 --write --unsafe",
     "format": "biome format --write",

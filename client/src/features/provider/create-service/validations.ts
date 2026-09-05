@@ -56,7 +56,8 @@ const AddServiceAPISchema = z
 
     duration: z
       .number("Duration is required")
-      .positive("Duration must be positive"),
+      .positive("Duration must be positive")
+      .default(60),
 
     max_appointments_per_day: z
       .number("Must be a number")

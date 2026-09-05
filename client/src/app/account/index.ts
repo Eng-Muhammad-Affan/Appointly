@@ -1,6 +1,6 @@
-export {default as SupportLinks} from "./SupportLinks"
-export {default as RecentOrders} from "./RecentAppointments"
-export {default as QuickStats} from "./QuickStats"
-export {default as QuickActions} from "./QuickActions"
+export { default as SupportLinks } from "./SupportLinks";
+export { default as RecentOrders } from "./RecentAppointments";
+export { default as QuickStats } from "./QuickStats";
+export { default as QuickActions } from "./QuickActions";
 // export {default as MemberShip} from "./MemberShip"
-export {default as ProfileData} from "./ProfileData"
+export { default as ProfileData } from "./ProfileData";

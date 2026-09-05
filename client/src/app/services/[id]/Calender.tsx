@@ -1,12 +1,11 @@
-import { useState } from "react";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import "react-day-picker/style.css";
 import { useServiceDetails } from "@/features/user/service-details";
 
 export function Calendar() {
-  const { selectedDate, setSelectedDate } = useServiceDetails();
-  const [month, setMonth] = useState<Date>(new Date()); // October 2026
+  const { selectedDate, setSelectedDate, month, setMonth } =
+    useServiceDetails();
   const _defaultClassNames = getDefaultClassNames();
 
   // Sample dates with events (dots)
@@ -27,7 +26,7 @@ export function Calendar() {
   };
 
   return (
-    <div className="mx-auto p-4">
+    <div className="">
       <DayPicker
         required
         mode="single"
@@ -41,9 +40,9 @@ export function Calendar() {
           // Chevron handles both previous and next icons (v9+)
           Chevron: (props) => {
             if (props.orientation === "left") {
-              return <ChevronLeft size={20} />;
+              return <ChevronLeft size={20} className="hidden" />;
             }
-            return <ChevronRight size={20} />;
+            return <ChevronRight size={20} className="hidden" />;
           },
           // Custom day rendering with event dots
           DayButton: (props) => {
@@ -105,7 +104,7 @@ export function Calendar() {
       {/* Show selected date info */}
       {selectedDate && (
         <div className="mt-4 p-3 bg-gray-50 rounded-lg text-center text-sm">
-          Selected:{" "}
+          Selected:
           {selectedDate.toLocaleDateString("default", {
             weekday: "long",
             year: "numeric",

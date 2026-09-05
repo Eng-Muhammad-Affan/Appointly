@@ -26,7 +26,6 @@
 
 //   const debouncedQuery = useDebounce(searchQuery);
 
-
 //   useEffect(() => {
 //     const search = async () => {
 //       // Cancel previous request if it exists
@@ -110,7 +109,7 @@
 import axios from "axios";
 import { Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { ClientService } from "../types";
+import type { ClientService } from "../types";
 
 const useDebounce = (value: string, delay: number = 500) => {
   const [debouncedValue, setDebouncedValue] = useState(value); // Initialize with value
@@ -124,7 +123,7 @@ const useDebounce = (value: string, delay: number = 500) => {
   }, [value, delay]);
 
   return debouncedValue;
-}
+};
 
 export const SearchBar = () => {
   const [searchFocused, setSearchFocused] = useState(false);
@@ -146,22 +145,22 @@ export const SearchBar = () => {
       try {
         // Use encodeURIComponent to properly encode the query
         const url = `/api/services?query=${encodeURIComponent(debouncedQuery)}`;
-        console.log('Fetching:', url); // Debug log
-        
+        console.log("Fetching:", url); // Debug log
+
         const response = await axios.get(url, {
-          signal: abortControllerRef.current.signal
+          signal: abortControllerRef.current.signal,
         });
-        
-        console.log('Response:', response.data); // Debug log
+
+        console.log("Response:", response.data); // Debug log
         setSearchResults(response.data);
       } catch (err) {
         if (axios.isCancel(err)) {
-          console.log('Request cancelled');
+          console.log("Request cancelled");
           return;
         }
-        console.error('Search error:', err);
+        console.error("Search error:", err);
       }
-    }
+    };
 
     // Check debouncedQuery, not searchQuery
     if (debouncedQuery.trim() !== "" && searchFocused) {
@@ -192,13 +191,13 @@ export const SearchBar = () => {
       {searchFocused && searchResults.length > 0 && (
         <div className="bg-surface-container-lowest absolute w-full max-h-[40vh] overflow-y-auto shadow-lg rounded-b-lg border border-muted/30 z-10">
           {searchResults.map((service, idx) => (
-            <div 
+            <div
               key={service.id || idx}
               className="px-4 py-2 hover:bg-surface-container cursor-pointer"
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => {
                 // Optional: handle service selection
-                console.log('Selected:', service);
+                console.log("Selected:", service);
               }}
             >
               {service.name}

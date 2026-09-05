@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Star, Settings, User} from "lucide-react";
+import { Star, Settings, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
@@ -15,24 +15,24 @@ const ProfileSkeleton = () => {
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
           {/* Avatar skeleton */}
           <div className="w-[100px] h-[100px] rounded-full bg-gray-300 dark:bg-gray-700" />
-          
+
           <div className="flex-1 space-y-3">
             {/* Name and badge skeleton */}
             <div className="flex items-center gap-3">
               <div className="h-8 w-48 bg-gray-300 dark:bg-gray-700 rounded" />
               <div className="h-6 w-28 bg-gray-300 dark:bg-gray-700 rounded-full" />
             </div>
-            
+
             {/* Email skeleton */}
             <div className="h-5 w-64 bg-gray-300 dark:bg-gray-700 rounded" />
-            
+
             {/* Badges skeleton */}
             <div className="flex flex-wrap items-center gap-4">
               <div className="h-6 w-20 bg-gray-300 dark:bg-gray-700 rounded-full" />
               <div className="h-6 w-32 bg-gray-300 dark:bg-gray-700 rounded-full" />
             </div>
           </div>
-          
+
           {/* Button skeleton */}
           <div className="h-10 w-32 bg-gray-300 dark:bg-gray-700 rounded-md" />
         </div>
@@ -43,6 +43,7 @@ const ProfileSkeleton = () => {
 
 // Main profile component
 const ProfileData = () => {
+  // biome-ignore lint/suspicious/noExplicitAny:required
   const [session, setSession] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -52,14 +53,16 @@ const ProfileData = () => {
       try {
         setIsLoading(true);
         const { data, error } = await authClient.getSession();
-        
+
         if (error) {
           throw new Error(error.message || "Failed to fetch session");
         }
-        
+
         setSession(data);
       } catch (err) {
-        setError(err instanceof Error ? err : new Error("Unknown error occurred"));
+        setError(
+          err instanceof Error ? err : new Error("Unknown error occurred"),
+        );
         console.error("Session fetch error:", err);
       } finally {
         setIsLoading(false);
@@ -83,8 +86,8 @@ const ProfileData = () => {
             <p className="text-red-600 dark:text-red-400">
               Failed to load profile. Please try again.
             </p>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="mt-2"
               onClick={() => window.location.reload()}
             >
@@ -137,8 +140,12 @@ const ProfileData = () => {
                 <User className="w-3 h-3 mr-1" />
                 Verified
               </Badge>
-              <Badge variant="outline" className="border-[var(--color-outline)] text-[var(--color-on-surface-variant)]">
-                Member since {new Date(session.user.createdAt || Date.now()).getFullYear()}
+              <Badge
+                variant="outline"
+                className="border-[var(--color-outline)] text-[var(--color-on-surface-variant)]"
+              >
+                Member since{" "}
+                {new Date(session.user.createdAt || Date.now()).getFullYear()}
               </Badge>
             </div>
           </div>

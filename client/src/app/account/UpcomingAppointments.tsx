@@ -2,13 +2,13 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { 
-  Calendar, 
-  Clock, 
-  MapPin, 
-  User, 
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  User,
   ChevronRight,
-  Plus
+  Plus,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -34,10 +34,10 @@ const AppointmentsSkeleton = () => {
         <div className="h-8 w-48 bg-gray-300 dark:bg-gray-700 rounded" />
         <div className="h-10 w-32 bg-gray-300 dark:bg-gray-700 rounded" />
       </div>
-      
+
       {[1, 2, 3].map((i) => (
-        <div 
-          key={i} 
+        <div
+          key={i}
           className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -75,7 +75,7 @@ const AppointmentCard = ({ appointment }: { appointment: Appointment }) => {
     }
   };
 
-  const getTypeIcon = (type: Appointment["type"]) => {
+  const _getTypeIcon = (type: Appointment["type"]) => {
     switch (type) {
       case "consultation":
         return <User className="w-4 h-4" />;
@@ -95,11 +95,13 @@ const AppointmentCard = ({ appointment }: { appointment: Appointment }) => {
               {appointment.title}
             </h3>
           </div>
-          
+
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[var(--color-on-surface-variant)]">
             <div className="flex items-center gap-1.5">
               <Calendar className="w-4 h-4" />
-              <span>{dayjs(new Date(appointment.date)).format("MMM d, yyyy")}</span>
+              <span>
+                {dayjs(new Date(appointment.date)).format("MMM d, yyyy")}
+              </span>
             </div>
             <div className="flex items-center gap-1.5">
               <Clock className="w-4 h-4" />
@@ -119,10 +121,11 @@ const AppointmentCard = ({ appointment }: { appointment: Appointment }) => {
             )}
           </div>
         </div>
-        
+
         <div className="flex items-center gap-2 self-start sm:self-center">
           <Badge className={getStatusColor(appointment.status)}>
-            {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
+            {appointment.status.charAt(0).toUpperCase() +
+              appointment.status.slice(1)}
           </Badge>
           <Link href={`/appointments/${appointment.id}`}>
             <Button
@@ -152,10 +155,10 @@ const UpcomingAppointments = () => {
         // Simulate API call - replace with actual API call
         // const response = await fetch('/api/appointments/upcoming');
         // const data = await response.json();
-        
+
         // Mock data for demonstration
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+
         const mockAppointments: Appointment[] = [
           {
             id: "1",
@@ -165,7 +168,7 @@ const UpcomingAppointments = () => {
             location: "Main Clinic - Room 302",
             with: "Dr. Sarah Johnson",
             status: "confirmed",
-            type: "consultation"
+            type: "consultation",
           },
           {
             id: "2",
@@ -175,7 +178,7 @@ const UpcomingAppointments = () => {
             location: "Virtual Call",
             with: "Dr. Michael Chen",
             status: "pending",
-            type: "call"
+            type: "call",
           },
           {
             id: "3",
@@ -185,13 +188,17 @@ const UpcomingAppointments = () => {
             location: "Dental Center - Floor 2",
             with: "Dr. Emily Rodriguez",
             status: "upcoming",
-            type: "consultation"
-          }
+            type: "consultation",
+          },
         ];
-        
+
         setAppointments(mockAppointments);
       } catch (err) {
-        setError(err instanceof Error ? err : new Error("Failed to fetch appointments"));
+        setError(
+          err instanceof Error
+            ? err
+            : new Error("Failed to fetch appointments"),
+        );
         console.error("Appointments fetch error:", err);
       } finally {
         setIsLoading(false);
@@ -218,8 +225,8 @@ const UpcomingAppointments = () => {
           <div className="text-red-600 dark:text-red-400 mb-4">
             Failed to load appointments
           </div>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={() => window.location.reload()}
             className="text-[var(--color-secondary)]"
           >
@@ -269,13 +276,13 @@ const UpcomingAppointments = () => {
           </Button>
         </Link>
       </div>
-      
+
       <div className="space-y-3">
         {appointments.map((appointment) => (
           <AppointmentCard key={appointment.id} appointment={appointment} />
         ))}
       </div>
-      
+
       {appointments.length > 3 && (
         <div className="mt-4 text-center">
           <Link href="/appointments">

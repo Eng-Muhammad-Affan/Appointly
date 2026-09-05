@@ -3,7 +3,7 @@ class Logger {
   constructor(path: string) {
     this.path = path;
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny:required
   log(lineNumber: number, message: string, data: any) {
     return console.log(
       `\n Line-${lineNumber} \n route:${this.path} \n message:${message} \n data: `,

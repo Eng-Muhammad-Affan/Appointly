@@ -4,7 +4,6 @@ import db from "@/db";
 import { appointment, service, user } from "@/db/schemas";
 import { eq, and, or, gt, not } from "drizzle-orm";
 import dayjs from "@/lib/dayjs";
-import type { AppointmentClient } from "@/features/user/services";
 
 export const GET = async (
   _req: NextRequest,
@@ -16,7 +15,7 @@ export const GET = async (
     const today = dayjs().format("YYYY-MM-DD");
 
     let requiredService = {};
-    let slots: AppointmentClient[] = [];
+    let slots: any[] = [];
 
     await db.transaction(async (tsx) => {
       await tsx
@@ -52,7 +51,7 @@ export const GET = async (
         });
 
       // ____ Fetch appointments ...
-      slots = (await tsx.query.appointment.findMany({
+      slots = await tsx.query.appointment.findMany({
         where: and(
           eq(appointment.service_id, id),
           or(
@@ -69,7 +68,7 @@ export const GET = async (
           created_at: false,
           status: false,
         },
-      })) as AppointmentClient[];
+      });
     });
 
     // console.log(requiredService);
@@ -85,6 +84,6 @@ export const GET = async (
     );
   } catch (err) {
     console.error("Query error:", err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    return NextResponse.json({ error: err }, { status: 500 });
   }
 };

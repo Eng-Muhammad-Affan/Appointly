@@ -9,15 +9,15 @@ interface ProfileState {
 
   setAppointments: (list: AppointmentProfile[]) => void;
   setCompletedAppointments: (list: AppointmentProfile[]) => void;
-    completedAppointments: AppointmentProfile[];
+  completedAppointments: AppointmentProfile[];
   setCancelledAppointments: (list: AppointmentProfile[]) => void;
-    cancelledAppointments: AppointmentProfile[];
+  cancelledAppointments: AppointmentProfile[];
 }
 
 export const useProfile = create<ProfileState>()((set) => ({
   name: "",
   email: "",
-  
+
   setInfo: (info) =>
     set(() => ({
       name: info.name,
@@ -28,15 +28,16 @@ export const useProfile = create<ProfileState>()((set) => ({
     set(() => ({
       appointments: list,
     })),
-  
-    setCompletedAppointments:(list) => set(() => ({
-      completedAppointments:list
-    })),
-    completedAppointments:[],
 
-    setCancelledAppointments:(list) => set(() => ({
-      completedAppointments:list
+  setCompletedAppointments: (list) =>
+    set(() => ({
+      completedAppointments: list,
     })),
-    cancelledAppointments:[],
+  completedAppointments: [],
 
+  setCancelledAppointments: (list) =>
+    set(() => ({
+      completedAppointments: list,
+    })),
+  cancelledAppointments: [],
 }));

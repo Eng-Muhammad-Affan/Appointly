@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import ProfileData from "./ProfileData";
 import RecentAppointments from "./RecentAppointments";
 import QuickStats from "./QuickStats";

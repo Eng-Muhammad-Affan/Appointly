@@ -1,10 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import db from "@/db";
 import { user, service, appointment } from "@/db/schemas";
 import { eq, and, ilike } from "drizzle-orm";
 
 export const GET = async (req: NextRequest) => {
-
   const params = req.nextUrl.searchParams;
   const searchQuery = params.get("query");
 
@@ -12,7 +11,7 @@ export const GET = async (req: NextRequest) => {
     const isSearchParamsPresent = searchQuery && searchQuery.trim() !== "";
     const whereConditions = [eq(service.is_active, true)];
     if (isSearchParamsPresent) {
-      whereConditions.push(ilike(service.name, `%${searchQuery}%`))
+      whereConditions.push(ilike(service.name, `%${searchQuery}%`));
     }
 
     const services = await db
@@ -55,6 +54,6 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json(services, { status: 200 });
   } catch (err) {
     console.error("Query error:", err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    return NextResponse.json({ error: err }, { status: 500 });
   }
 };

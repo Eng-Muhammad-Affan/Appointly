@@ -16,9 +16,17 @@ type ServiceDetailsState = {
   setService: (service: ClientService) => void;
   fetchClientService: (id: string) => void;
   getSlots: (service: ClientService) => void;
+  month: Date;
+  setMonth: (month: Date) => void;
 };
 
 export const useServiceDetails = create<ServiceDetailsState>((set) => ({
+  month: new Date(),
+  setMonth: (month) =>
+    set({
+      month,
+    }),
+
   selectedSlot: null,
 
   setSelectedSlot: (slot) =>

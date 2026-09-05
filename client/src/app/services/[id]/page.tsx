@@ -1,5 +1,5 @@
 "use client";
-import { ChevronRight, Star, CheckCircle } from "lucide-react";
+import { ChevronRight, Star, CheckCircle, ChevronLeft } from "lucide-react";
 import { Calendar } from "./Calender";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
@@ -139,11 +139,7 @@ const ServiceDetails = () => {
               <h3 className="text-xl font-bold">What's Included</h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {service.details.map((detail, idx) => (
-                  <li
-                    className="flex items-center gap-3"
-                    // biome-ignore lint/suspicious/noArrayIndexKey:required
-                    key={idx}
-                  >
+                  <li className="flex items-center gap-3" key={idx}>
                     <CheckCircle
                       size={20}
                       className="text-accent fill-accent"
@@ -238,7 +234,16 @@ const ServiceDetails = () => {
 
           {/* Right Column: Booking Panel */}
           <aside className="sticky top-[88px] bg-surface-container-lowest p-6 rounded-xl shadow-lg border border-outline-variant/10">
-            <h3 className="text-xl font-bold mb-6">Book This Service</h3>
+            <div className="flex justify-between items-center">
+              <h3 className="text-xl font-bold">Book This Service</h3>
+
+              <div className="flex justify-center items-center gap-6">
+                <ChevronLeft size={20} />
+                <ChevronRight size={20} />
+              </div>
+            </div>
+            <br />
+            <br />
             {/* Calendar Component */}
             <Calendar />
 
@@ -261,7 +266,6 @@ const ServiceDetails = () => {
                       );
 
                       return (
-                        //biome-ignore lint/a11y/useKeyWithClickEvents:required
                         <div
                           onClick={() => setSelectedSlot(slot)}
                           className={`${selectedSlot && selectedSlot.id === slot.id ? "bg-accent" : "bg-surface-container-low"} cursor-pointer flex items-center justify-between p-4 border-l-4 border-accent  rounded-lg`}

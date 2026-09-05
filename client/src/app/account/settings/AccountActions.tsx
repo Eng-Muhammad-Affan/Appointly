@@ -58,8 +58,7 @@ export const AccountActions = () => {
                 Logout from this device
               </p>
             </div>
-            <LogoutButton/>
-           
+            <LogoutButton />
           </div>
         </div>
       </div>

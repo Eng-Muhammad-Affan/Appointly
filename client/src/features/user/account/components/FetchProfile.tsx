@@ -13,7 +13,12 @@ export const FetchUserProfileData = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { setAppointments ,appointments, setCompletedAppointments, setCancelledAppointments} = useProfile();
+  const {
+    setAppointments,
+    appointments,
+    setCompletedAppointments,
+    setCancelledAppointments,
+  } = useProfile();
   const { data } = authClient.useSession();
 
   useEffect(() => {
@@ -35,16 +40,22 @@ export const FetchUserProfileData = ({
     }
   }, [data, setAppointments]);
 
-
   useEffect(() => {
-    const completedAppointments = appointments.filter((app) => app.status === "COMPLETED");
-    const cancelledAppointments = appointments.filter((app) => app.status === "CANCELLED");
-    const upcomingAppointments = appointments.filter((app) => app.status === "PAID");
-    const reschedule = appointments.filter((app) => app.status === "REQUESTED-RESCHEDULE");
+    const completedAppointments = appointments.filter(
+      (app) => app.status === "COMPLETED",
+    );
+    const cancelledAppointments = appointments.filter(
+      (app) => app.status === "CANCELLED",
+    );
+    const _upcomingAppointments = appointments.filter(
+      (app) => app.status === "PAID",
+    );
+    const _reschedule = appointments.filter(
+      (app) => app.status === "REQUESTED-RESCHEDULE",
+    );
 
     setCompletedAppointments(completedAppointments);
     setCancelledAppointments(cancelledAppointments);
-
-  },[appointments])
+  }, [appointments, setCancelledAppointments, setCompletedAppointments]);
   return children;
 };

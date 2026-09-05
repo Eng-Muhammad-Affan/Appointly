@@ -55,9 +55,6 @@ const ServiceCreationPage: React.FC = () => {
       category: "",
       price: 0,
       description: "",
-      duration: 60,
-      buffer_time_min: 0,
-      cancellation_policy_hrs: 0,
     },
   });
 

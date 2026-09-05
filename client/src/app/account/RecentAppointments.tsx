@@ -1,188 +1,3 @@
-// import { Card } from "@/components/ui/card";
-// import { Badge } from "@/components/ui/badge";
-// import Image from "next/image";
-// import { Calendar, Clock } from "lucide-react";
-// import { useProfile } from "@/features/user/account";
-// import { formatDate } from "@/utils/format-date";
-// import dayjs from "@/lib/dayjs";
-// import { useMemo } from "react";
-
-// const statusmap = {
-//   "PENDING": "upcoming",
-//   "PAID": "upcoming",
-//   "COMPLETED": "completed",
-//   "CANCELLED": "cancelled",
-//   "REQUESTED-RESCHEDULE": "requested reschedule"
-// }
-
-// type Status = "PENDING" | "PAID" | "COMPLETED" | "CANCELLED" | "REQUESTED-RESCHEDULE"
-
-// const StatusBadge = ({status, startTime}:{status:Status, startTime:string}) => {
-//   let className = ""
-//   const today = dayjs();
-//   const startDateTime = dayjs(startTime);
-//   const hoursRemaining = today.diff(startDateTime, "hour");
-//   const minutesRemaining = today.diff(startDateTime, "minute");
-
-//   switch (status) {
-//     case "PAID":
-//       className = "bg-accent text-[var(--color-on-primary)]";
-//       break;
-//     case "CANCELLED":
-//       className = "bg-[var(--color-error)] text-[var(--color-on-primary)]";
-//       break;
-//     case "COMPLETED":
-//       className = "bg-[var(--color-secondary)] text-[var(--color-on-secondary)]";
-//       break;
-//   }
-
-//   // Format the remaining time
-//   let displayText = statusmap[status];
-
-//   // Only show remaining time for PAID status when 1 hour or less remains
-//   if (status === "PAID" && hoursRemaining <= 1 && hoursRemaining >= 0) {
-//     if (minutesRemaining <= 0) {
-//       displayText = "Starting now";
-//     } else if (minutesRemaining < 60) {
-//       displayText = `${minutesRemaining}m remaining`;
-//     } else {
-//       displayText = `${hoursRemaining}h remaining`;
-//     }
-//   }
-
-//   return (
-//     <Badge className={`${hoursRemaining <= 1 && hoursRemaining >= 0 ? "bg-orange-300" : className} whitespace-nowrap text-black`}>
-//       {displayText}
-//     </Badge>
-//   )
-// }
-
-// // const StatusBadge = ({status , startTime}:{status:Status, startTime:string}) => {
-
-// //   let className = ""
-// //   const today = dayjs();
-
-// //   const hoursRemaining = today.diff(dayjs(startTime).toDate(),"hour");
-
-// //   console.log(hoursRemaining)
-
-// //   switch (status) {
-// //     case "PAID":
-// //       className = "bg-[var(--color-accent-success)] text-[var(--color-on-primary)]";
-// //       break;
-// //     case "CANCELLED":
-// //       className = "bg-[var(--color-error)] text-[var(--color-on-primary)]";
-// //       break;
-// //     case "COMPLETED":
-// //       className = "bg-[var(--color-secondary)] text-[var(--color-on-secondary)]";
-// //       break;
-
-// //   }
-
-// //   return (
-// //     <Badge className={`${className} whitespace-nowrap bg-green-400/90 text-black`}>
-// //       {hoursRemaining <=1? `${hoursRemaining}` : statusmap[status]}
-// //     </Badge>
-// //   )
-// // }
-// const RecentAppointments = () => {
-//   const { appointments } = useProfile();
-
-//   const sortedAppointments = useMemo(() => {
-//     return appointments.sort((a,b) => {
-//       const date1 = dayjs(a.start_time);
-//       const date2 = dayjs(b.start_time);
-//       return date1 - date2;
-//     })
-//   },[appointments])
-
-//   // const getStatusColor = (status: string) => {
-//   //   const statusMap: Record<string, string> = {
-//   //     paid: "bg-[var(--color-accent-success)] text-[var(--color-on-primary)]",
-//   //     pending: "bg-[var(--color-warning)] text-[var(--color-on-primary)]",
-//   //     cancelled: "bg-[var(--color-error)] text-[var(--color-on-primary)]",
-//   //     completed: "bg-[var(--color-secondary)] text-[var(--color-on-secondary)]",
-//   //   };
-//   //   return statusMap[status.toLowerCase()] || "bg-[var(--color-muted)] text-[var(--color-on-primary)]";
-//   // };
-
-//   return (
-//     <Card className="shadow-md transition-all duration-300 border-[var(--color-secondary)] hover:shadow-lg transition-all duration-300">
-//       <div className="p-4 border-b">
-//         <div className="flex justify-between items-center">
-//           <h2 className="text-h2 text-[var(--color-on-surface)] flex items-center">
-//             Recent Activity
-//           </h2>
-//         </div>
-//       </div>
-//       <div className="px-6">
-//         <div className="flex flex-col gap-2">
-//           {sortedAppointments.map((appointment) => (
-//             <div
-//               key={appointment.id}
-//               className="flex items-start gap-4 p-4 bg-[var(--color-surface)] rounded-xl border border-[var(--color-secondary)] transition-all duration-300 hover:shadow-md"
-//             >
-//               <div className="flex-shrink-0">
-//                 <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-[var(--color-secondary)]/20">
-//                   <Image
-//                     width={64}
-//                     height={64}
-//                     src={appointment.service.image}
-//                     alt={appointment.service.name}
-//                     className="w-full h-full object-cover"
-//                   />
-//                 </div>
-//               </div>
-//               <div className="flex-1 min-w-0">
-//                 <div className="flex flex-wrap justify-between items-start gap-2 mb-2">
-//                   <div className="min-w-0">
-//                     <h3 className="font-semibold text-[var(--color-on-surface)] text-body-base truncate">
-//                       Appointment #{appointment.token}
-//                     </h3>
-//                     <p className="text-body-small text-[var(--color-on-surface-variant)] truncate">
-//                       {appointment.service.name}
-//                     </p>
-//                   </div>
-//                   <StatusBadge status={appointment.status} startTime={appointment.start_time} />
-//                 </div>
-//                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2">
-//                   <div className="flex items-center text-caption text-[var(--color-on-surface-variant)]">
-//                     <Calendar className="w-3 h-3 mr-1" />
-//                     {formatDate(new Date(appointment.slot_date), 'D MMMM, YYYY')}
-//                   </div>
-//                   {appointment.slot_date && (
-//                     <div className="flex items-center text-caption text-[var(--color-on-surface-variant)]">
-//                       <Clock className="w-3 h-3 mr-1" />
-//                       {dayjs(appointment.start_time, "HH:mm").format("HH:mm A")} - 
-//                        {dayjs(appointment.end_time, "HH:mm").format("HH:mm A")}
-//                     </div>
-//                   )}
-//                   <div className="flex items-center text-caption font-semibold text-[var(--color-secondary-dark)] ml-auto">
-//                     {appointment.service.currency.toUpperCase()}
-//                     {appointment.service.price.toLocaleString()}
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-
-//           {appointments.length === 0 && (
-//             <div className="text-center py-12 text-[var(--color-on-surface-variant)]">
-//               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--color-surface-container)] flex items-center justify-center">
-//                 <Calendar className="w-8 h-8 text-[var(--color-outline)]" />
-//               </div>
-//               <p className="text-body-base">No recent appointments found</p>
-//               <p className="text-caption mt-1">Book your first appointment today</p>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </Card>
-//   );
-// };
-
-// export default RecentAppointments;
-
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -244,7 +59,7 @@ const StatusBadge = ({
   const hasStarted = now.isAfter(startDateTime);
 
   let className = "";
-  let displayText = statusmap[status];
+  let displayText: string = statusmap[status];
 
   switch (status) {
     case "PAID":
@@ -252,8 +67,7 @@ const StatusBadge = ({
       break;
 
     case "CANCELLED":
-      className =
-        "bg-[var(--color-error)] text-[var(--color-on-primary)]";
+      className = "bg-[var(--color-error)] text-[var(--color-on-primary)]";
       break;
 
     case "COMPLETED":
@@ -262,13 +76,11 @@ const StatusBadge = ({
       break;
 
     case "PENDING":
-      className =
-        "bg-[var(--color-muted)] text-[var(--color-on-primary)]";
+      className = "bg-[var(--color-muted)] text-[var(--color-on-primary)]";
       break;
 
     case "REQUESTED-RESCHEDULE":
-      className =
-        "bg-[var(--color-muted)] text-[var(--color-on-primary)]";
+      className = "bg-[var(--color-muted)] text-[var(--color-on-primary)]";
       break;
   }
 
@@ -278,11 +90,7 @@ const StatusBadge = ({
    * Don't show "Ongoing" for appointments which have already
    * been completed or cancelled.
    */
-  if (
-    hasStarted &&
-    status !== "COMPLETED" &&
-    status !== "CANCELLED"
-  ) {
+  if (hasStarted && status !== "COMPLETED" && status !== "CANCELLED") {
     displayText = "Ongoing";
     className = "bg-orange-300 text-black";
   }
@@ -305,11 +113,7 @@ const StatusBadge = ({
   }
 
   return (
-    <Badge
-      className={`${className} whitespace-nowrap`}
-    >
-      {displayText}
-    </Badge>
+    <Badge className={`${className} whitespace-nowrap`}>{displayText}</Badge>
   );
 };
 
@@ -332,6 +136,7 @@ const QRScanner = ({
     const scannerId = "appointment-qr-reader";
 
     const scanner = new Html5Qrcode(scannerId, {
+      verbose: false,
       formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
     });
 
@@ -362,10 +167,7 @@ const QRScanner = ({
 
             hasScannedRef.current = true;
 
-            console.log(
-              "Scanned QR payload:",
-              decodedText
-            );
+            console.log("Scanned QR payload:", decodedText);
 
             onScan(decodedText);
 
@@ -374,10 +176,7 @@ const QRScanner = ({
                 await scanner.stop();
               }
             } catch (error) {
-              console.error(
-                "Failed to stop QR scanner:",
-                error
-              );
+              console.error("Failed to stop QR scanner:", error);
             }
           },
           () => {
@@ -387,16 +186,13 @@ const QRScanner = ({
              * Do nothing here because this callback executes
              * continuously while scanning.
              */
-          }
+          },
         );
       } catch (error) {
-        console.error(
-          "Unable to start QR scanner:",
-          error
-        );
+        console.error("Unable to start QR scanner:", error);
 
         onError(
-          "Unable to access the camera. Please allow camera permission and try again."
+          "Unable to access the camera. Please allow camera permission and try again.",
         );
       }
     };
@@ -415,19 +211,13 @@ const QRScanner = ({
             await scanner.stop();
           }
         } catch (error) {
-          console.error(
-            "Failed to stop QR scanner during cleanup:",
-            error
-          );
+          console.error("Failed to stop QR scanner during cleanup:", error);
         }
 
         try {
           scanner.clear();
         } catch (error) {
-          console.error(
-            "Failed to clear QR scanner:",
-            error
-          );
+          console.error("Failed to clear QR scanner:", error);
         }
 
         scannerRef.current = null;
@@ -440,10 +230,7 @@ const QRScanner = ({
   return (
     <div className="space-y-4">
       <div className="overflow-hidden rounded-xl border border-border bg-black">
-        <div
-          id="appointment-qr-reader"
-          className="w-full"
-        />
+        <div id="appointment-qr-reader" className="w-full" />
       </div>
 
       <p className="text-center text-sm text-muted-foreground">
@@ -461,14 +248,13 @@ const QRScanner = ({
 const RecentAppointments = () => {
   const { appointments } = useProfile();
 
-  const [isScannerOpen, setIsScannerOpen] =
-    useState(false);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
 
-  const [selectedAppointmentId, setSelectedAppointmentId] =
-    useState<string | number | null>(null);
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState<
+    string | number | null
+  >(null);
 
-  const [scannerError, setScannerError] =
-    useState<string | null>(null);
+  const [scannerError, setScannerError] = useState<string | null>(null);
 
   /**
    * -------------------------------------------------------
@@ -501,13 +287,8 @@ const RecentAppointments = () => {
    * Completed/cancelled appointments are excluded.
    */
   const isAppointmentOngoing = useCallback(
-    (appointment: {
-      status: Status;
-      start_time: string;
-    }) => {
-      const hasStarted = dayjs().isAfter(
-        dayjs(appointment.start_time)
-      );
+    (appointment: { status: Status; start_time: string }) => {
+      const hasStarted = dayjs().isAfter(dayjs(appointment.start_time));
 
       return (
         hasStarted &&
@@ -515,7 +296,7 @@ const RecentAppointments = () => {
         appointment.status !== "CANCELLED"
       );
     },
-    []
+    [],
   );
 
   /**
@@ -529,7 +310,7 @@ const RecentAppointments = () => {
       setScannerError(null);
       setIsScannerOpen(true);
     },
-    []
+    [],
   );
 
   /**
@@ -562,7 +343,7 @@ const RecentAppointments = () => {
       setSelectedAppointmentId(null);
       setScannerError(null);
     },
-    [selectedAppointmentId]
+    [selectedAppointmentId],
   );
 
   /**
@@ -570,29 +351,23 @@ const RecentAppointments = () => {
    * QR scanner error
    * -------------------------------------------------------
    */
-  const handleScannerError = useCallback(
-    (message: string) => {
-      setScannerError(message);
-    },
-    []
-  );
+  const handleScannerError = useCallback((message: string) => {
+    setScannerError(message);
+  }, []);
 
   /**
    * -------------------------------------------------------
    * Dialog close
    * -------------------------------------------------------
    */
-  const handleScannerDialogChange = useCallback(
-    (open: boolean) => {
-      setIsScannerOpen(open);
+  const handleScannerDialogChange = useCallback((open: boolean) => {
+    setIsScannerOpen(open);
 
-      if (!open) {
-        setSelectedAppointmentId(null);
-        setScannerError(null);
-      }
-    },
-    []
-  );
+    if (!open) {
+      setSelectedAppointmentId(null);
+      setScannerError(null);
+    }
+  }, []);
 
   return (
     <>
@@ -616,8 +391,10 @@ const RecentAppointments = () => {
         <div className="px-6">
           <div className="flex flex-col gap-2">
             {sortedAppointments.map((appointment) => {
-              const isOngoing =
-                isAppointmentOngoing(appointment);
+              const isOngoing = isAppointmentOngoing({
+                status: appointment.status,
+                start_time: appointment.start_time,
+              });
 
               return (
                 <div
@@ -648,8 +425,7 @@ const RecentAppointments = () => {
                     <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
                       <div className="min-w-0">
                         <h3 className="truncate text-body-base font-semibold text-[var(--color-on-surface)]">
-                          Appointment #
-                          {appointment.token}
+                          Appointment #{appointment.token}
                         </h3>
 
                         <p className="truncate text-body-small text-[var(--color-on-surface-variant)]">
@@ -659,9 +435,7 @@ const RecentAppointments = () => {
 
                       <StatusBadge
                         status={appointment.status}
-                        startTime={
-                          appointment.start_time
-                        }
+                        startTime={appointment.start_time}
                       />
                     </div>
 
@@ -676,10 +450,8 @@ const RecentAppointments = () => {
                         <Calendar className="mr-1 h-3 w-3" />
 
                         {formatDate(
-                          new Date(
-                            appointment.slot_date
-                          ),
-                          "D MMMM, YYYY"
+                          new Date(appointment.slot_date),
+                          "D MMMM, YYYY",
                         )}
                       </div>
 
@@ -689,15 +461,11 @@ const RecentAppointments = () => {
                         <div className="flex items-center text-caption text-[var(--color-on-surface-variant)]">
                           <Clock className="mr-1 h-3 w-3" />
 
-                          {dayjs(
-                            appointment.start_time
-                          ).format("HH:mm A")}
+                          {dayjs(appointment.start_time).format("HH:mm A")}
 
                           {" - "}
 
-                          {dayjs(
-                            appointment.end_time
-                          ).format("HH:mm A")}
+                          {dayjs(appointment.end_time).format("HH:mm A")}
                         </div>
                       )}
 
@@ -718,14 +486,11 @@ const RecentAppointments = () => {
                         <Button
                           type="button"
                           onClick={() =>
-                            handleCompleteAppointment(
-                              appointment.id
-                            )
+                            handleCompleteAppointment(appointment.id)
                           }
                           className="inline-flex items-center gap-2"
                         >
                           <CheckCircle2 className="h-4 w-4" />
-
                           Complete appointment
                         </Button>
                       </div>
@@ -745,9 +510,7 @@ const RecentAppointments = () => {
                   <Calendar className="h-8 w-8 text-[var(--color-outline)]" />
                 </div>
 
-                <p className="text-body-base">
-                  No recent appointments found
-                </p>
+                <p className="text-body-base">No recent appointments found</p>
 
                 <p className="mt-1 text-caption">
                   Book your first appointment today
@@ -762,10 +525,7 @@ const RecentAppointments = () => {
       {/* QR Scanner Dialog */}
       {/* ================================================== */}
 
-      <Dialog
-        open={isScannerOpen}
-        onOpenChange={handleScannerDialogChange}
-      >
+      <Dialog open={isScannerOpen} onOpenChange={handleScannerDialogChange}>
         <DialogContent className="sm:max-w-[600px] p-0 overflow-hidden bg-background rounded-xl shadow-2xl">
           {/* ------------------------------------------------ */}
           {/* Dialog Header */}
@@ -778,8 +538,7 @@ const RecentAppointments = () => {
               </DialogTitle>
 
               <DialogDescription className="text-sm text-muted-foreground">
-                Scan the appointment QR code to complete
-                this appointment.
+                Scan the appointment QR code to complete this appointment.
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -807,10 +566,7 @@ const RecentAppointments = () => {
                 </Button>
               </div>
             ) : (
-              <QRScanner
-                onScan={handleQRScan}
-                onError={handleScannerError}
-              />
+              <QRScanner onScan={handleQRScan} onError={handleScannerError} />
             )}
           </div>
 
@@ -836,4 +592,3 @@ const RecentAppointments = () => {
 };
 
 export default RecentAppointments;
-

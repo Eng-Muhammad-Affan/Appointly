@@ -34,7 +34,7 @@
 
 // MemberShip.tsx
 import { Card } from "@/components/ui/card";
-import { Star, Crown } from "lucide-react";
+import { Crown } from "lucide-react";
 
 const MemberShip = () => {
   return (
@@ -44,7 +44,9 @@ const MemberShip = () => {
           <div className="p-2 bg-[var(--color-secondary)]/20 rounded-full mr-3">
             <Crown className="w-5 h-5 text-[var(--color-secondary-dark)]" />
           </div>
-          <h3 className="font-semibold text-[var(--color-on-surface)] text-h3">Gold Member</h3>
+          <h3 className="font-semibold text-[var(--color-on-surface)] text-h3">
+            Gold Member
+          </h3>
         </div>
         <p className="text-body-small text-[var(--color-on-surface-variant)] mb-4">
           Enjoy exclusive benefits including free shipping, early access to

@@ -64,13 +64,13 @@ export const QRScannerDialog = ({
           () => {
             // QR code not found in this frame.
             // Don't log this because it fires frequently.
-          }
+          },
         );
       } catch (error) {
         console.error("Unable to access camera:", error);
 
         setError(
-          "Unable to access the camera. Please allow camera permission and try again."
+          "Unable to access the camera. Please allow camera permission and try again.",
         );
       }
     };
@@ -115,17 +115,10 @@ export const QRScannerDialog = ({
         {/* Scanner */}
         <div className="px-6 py-6">
           <div className="overflow-hidden rounded-xl border border-border bg-black">
-            <div
-              id="appointment-qr-reader"
-              className="w-full"
-            />
+            <div id="appointment-qr-reader" className="w-full" />
           </div>
 
-          {error && (
-            <p className="mt-4 text-sm text-red-600">
-              {error}
-            </p>
-          )}
+          {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
 
           <p className="mt-4 text-center text-sm text-muted-foreground">
             Point your camera at the QR code.

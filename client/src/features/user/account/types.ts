@@ -23,6 +23,8 @@ type AppointmentProfile = Omit<
   | "customer_email"
   | "booked"
 > & {
+  start_time: string;
+  end_time: string;
   service: ServiceProfile;
 };
 

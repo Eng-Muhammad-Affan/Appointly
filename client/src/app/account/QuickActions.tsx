@@ -3,9 +3,7 @@ import { Card } from "@/components/ui/card";
 import { IconNotification } from "@tabler/icons-react";
 // import { useCartStore } from "@/stores/use-cart";
 // import { useWishlistStore } from "@/stores/use-wishlist";
-import { ShoppingBag, Heart, Settings } from "lucide-react";
-// import { Link, useNavigate } from "react-router-dom";
-import { LogOut } from "lucide-react";
+import { ShoppingBag, Settings } from "lucide-react";
 // import api from "@/lib/api";
 import Link from "next/link";
 
@@ -26,7 +24,7 @@ const QuickActions = () => {
       icon: IconNotification,
       link: "/account",
     },
-  ]
+  ];
   // const {wishlist} = useWishlistStore()
   // const {items} = useCartStore()
 
@@ -52,7 +50,6 @@ const QuickActions = () => {
                 {action.name}
               </Button>
             </Link>
-
           ))}
           {/* <Link href="/profile/settings" className="block">
             <Button

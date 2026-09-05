@@ -302,23 +302,6 @@ export const BookingButton = ({ serviceName }: { serviceName: string }) => {
                 </section>
               )}
 
-              {/* Verification Checkbox */}
-              {/* <div className="flex items-start gap-3 p-3 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-200 dark:border-amber-800/30">
-                <input
-                  type="checkbox"
-                  id="verification"
-                  className="mt-1 w-4 h-4 accent-amber-500 cursor-pointer"
-                  {...formMethods.register("verification")}
-                />
-                <label
-                  htmlFor="verification"
-                  className="text-sm text-amber-700 dark:text-amber-300 cursor-pointer"
-                >
-                  I confirm that all the information provided is correct and I
-                  understand that this booking is final.
-                </label>
-              </div> */}
-
               {/* ✅ Show form validation errors */}
               {Object.keys(formErrors).length > 0 && (
                 <div className="p-3 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-800/30">
@@ -339,9 +322,6 @@ export const BookingButton = ({ serviceName }: { serviceName: string }) => {
                     {formErrors.service_id && (
                       <li>{formErrors.service_id.message}</li>
                     )}
-                    {/* {formErrors.verification && (
-                      <li>{formErrors.verification.message}</li>
-                    )} */}
                   </ul>
                 </div>
               )}

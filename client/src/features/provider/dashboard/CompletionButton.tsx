@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { BookCheck, QrCode } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
 import type { Html5Qrcode } from "html5-qrcode";
 import { useDashboard } from "../dashboard-service";
@@ -27,7 +27,7 @@ export const CompletionsButton = () => {
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const generateQRCode = async () => {
+  const generateQRCode = useCallback(async () => {
     try {
       // Create a verification payload
       const qrPayload = JSON.stringify({
@@ -51,7 +51,7 @@ export const CompletionsButton = () => {
     } catch (error) {
       console.error("Error generating QR code:", error);
     }
-  };
+  }, [selectedService]);
 
   // Generate QR code when dialog opens
   useEffect(() => {
