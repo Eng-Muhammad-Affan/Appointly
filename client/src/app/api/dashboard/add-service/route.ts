@@ -15,7 +15,10 @@ export const POST = async (req: NextRequest) => {
   console.log(
     "--------------------- Running addServiceAction () ... -------------------------",
   );
-  console.log(req.body)
+  return NextResponse.json({
+    message:"Service created successfully",
+  })
+
   // try {
   //   // 1. Parse form data (including the image file)
   //   const formData = await req.formData();

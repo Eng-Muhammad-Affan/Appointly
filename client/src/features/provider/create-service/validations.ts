@@ -65,15 +65,13 @@ const AddServiceAPISchema = z
 
     max_capacity: z.number("Must be a number").positive("Must be positive"),
 
-    buffer_time_min: z
+    buffer_time_min: z.coerce
       .number("Must be a number")
-      .min(0, "Must be at least 0")
-      .default(0),
+      .min(0, "Must be at least 0"),
 
-    cancellation_policy_hrs: z
+    cancellation_policy_hrs: z.coerce
       .number("Must be a number")
       .min(0, "Must be at least 0")
-      .default(0), // 0 for non-refundable,
   })
   .strict()
   .superRefine((data, ctx) => {
@@ -107,3 +105,5 @@ const AddServiceAPISchema = z
   });
 
 export { AddServiceAPISchema };
+
+

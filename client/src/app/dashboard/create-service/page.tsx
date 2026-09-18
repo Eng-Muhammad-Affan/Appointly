@@ -55,6 +55,12 @@ const ServiceCreationPage: React.FC = () => {
       category: "",
       price: 0,
       description: "",
+      start_time: "",
+      end_time: "",
+      duration: 0,
+      max_appointments_per_day: 0,
+      buffer_time_min: 1,
+      cancellation_policy_hrs: 0
     },
   });
 
@@ -73,7 +79,7 @@ const ServiceCreationPage: React.FC = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data, error } = await authClient.getSession();
+        const { data, error } = authClient.useSession();
 
         if (error || !data) {
           toast.error(error?.message || "Provider not authenticated.");
@@ -121,6 +127,7 @@ const ServiceCreationPage: React.FC = () => {
 
   // Submit handler
   const onSubmit = async (formData: FormValues) => {
+    console.log(formData)
     try {
       const data = new FormData();
 
@@ -523,7 +530,7 @@ const ServiceCreationPage: React.FC = () => {
                       {imagePreview && (
                         <div className="w-full h-full">
                           <Image
-                            src={imagePreview}
+                            src={imagePreview as string}
                             alt={watchedValues.name || "Service image"}
                             fill
                             className="object-contain"
