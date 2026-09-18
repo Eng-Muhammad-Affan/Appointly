@@ -104,7 +104,7 @@ const ServicesPage: React.FC = () => {
                   <p className="font-h4 text-h4">
                     {Math.round(
                       services.reduce((acc, s) => acc + s.duration, 0) /
-                        services.length,
+                      services.length,
                     )}{" "}
                     Minutes
                   </p>

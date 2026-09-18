@@ -15,6 +15,7 @@ export const GET = async (
     const today = dayjs().format("YYYY-MM-DD");
 
     let requiredService = {};
+    // biome-ignore lint/suspicious/noExplicitAny:required here
     let slots: any[] = [];
 
     await db.transaction(async (tsx) => {

@@ -42,6 +42,37 @@ const ServiceCreationPage: React.FC = () => {
     null,
   );
 
+  const [imageError, setImageError] = useState<string | null>(null);
+
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setImageError(null);
+
+    if (!file) {
+      setImageFile(null);
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setImageError("Max file size is 5MB.");
+      return;
+    }
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      setImageError("Only .jpg, .png and .webp formats are supported.");
+      return;
+    }
+
+    setImageFile(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(AddServiceAPISchema),
     mode: "onChange",
@@ -60,12 +91,11 @@ const ServiceCreationPage: React.FC = () => {
       duration: 0,
       max_appointments_per_day: 0,
       buffer_time_min: 1,
-      cancellation_policy_hrs: 0
+      cancellation_policy_hrs: 0,
     },
   });
 
   const {
-    register,
     setValue,
     getValues,
     watch,
@@ -76,28 +106,22 @@ const ServiceCreationPage: React.FC = () => {
   const watchedValues = watch();
 
   // Fetch session and stripe account on mount
+  const { data, error } = authClient.useSession();
+
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const { data, error } = authClient.useSession();
-
-        if (error || !data) {
-          toast.error(error?.message || "Provider not authenticated.");
-          router.push("/login-provider");
-          return;
-        }
-
-        setValue("user_id", data.user.id);
-        setValue("currency", data.user.currency);
-
-        console.log(getValues());
-      } catch (error) {
-        toast.error("An unexpected error occurred.");
-        console.error(error);
-      }
-    };
-    getData();
-  }, [router, setValue, getValues]);
+    if (data && !error) {
+      setValue("user_id", data.user.id);
+      setValue("currency", data.user.currency);
+      return;
+    }
+    else if (!data && error) {
+      toast.error(error.message || "Provider not authenticated.");
+      return
+    }
+    else {
+      return
+    }
+  }, [data, error]);
 
   // Add highlight
   const handleAddHighlight = () => {
@@ -127,19 +151,19 @@ const ServiceCreationPage: React.FC = () => {
 
   // Submit handler
   const onSubmit = async (formData: FormValues) => {
-    console.log(formData)
+    console.log(formData);
+    if (!imageFile) {
+      setImageError("Upload an image")
+      return 
+    }
+
     try {
       const data = new FormData();
 
-      // Append image
-      if (formData.image) {
-        data.append("image", formData.image);
-      } else {
-        toast.error("Image is required");
-        return;
-      }
-
       // Append all other fields
+      if (imageFile) {
+        data.append("image", imageFile)
+      }
       data.append("name", formData.name);
       data.append("category", formData.category);
       data.append("description", formData.description);
@@ -170,7 +194,7 @@ const ServiceCreationPage: React.FC = () => {
 
       const result = await response.json();
 
-      console.log(result);
+      // console.log(result);
 
       if (!response.ok) {
         toast.error(result.message || "Failed to create service");
@@ -222,10 +246,11 @@ const ServiceCreationPage: React.FC = () => {
 
   const allCompleted = checklistItems.every((item) => item.completed);
 
-  useEffect(() => {
-    console.log(errors);
-    // console.log(getValues())
-  }, [errors]);
+  // useEffect(() => {
+  //   console.log(errors);
+  //   // console.log(getValues())
+  // }, [errors]);
+
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
@@ -551,26 +576,15 @@ const ServiceCreationPage: React.FC = () => {
                         type="file"
                         accept="image/*"
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                        {...register("image", {
-                          onChange: (e) => {
-                            const file = e.target.files[0];
-                            if (file) {
-                              const reader = new FileReader();
-                              reader.onloadend = () => {
-                                setImagePreview(reader.result);
-                              };
-                              reader.readAsDataURL(file);
-                            }
-                          },
-                        })}
+                        onChange={handleImageChange}
                       />
                     </div>
 
                     <div className="absolute top-[-10%] right-[-10%] w-32 h-32 bg-secondary opacity-20 rounded-full blur-2xl pointer-events-none" />
                   </div>
-                  {errors.image && (
+                  {imageError && (
                     <p className="text-sm text-error mt-1">
-                      {errors.image.message}
+                      {imageError}
                     </p>
                   )}
                 </div>

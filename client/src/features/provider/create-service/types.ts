@@ -1,4 +1,6 @@
-import type z from "zod";
-import type { AddServiceAPISchema } from "./validations";
+"use client"
 
-export type FormValues = z.infer<typeof AddServiceAPISchema>;
+import z from "zod";
+import { AddServiceAPISchema } from "./validations";
+
+export type FormValues = z.input<typeof AddServiceAPISchema>;

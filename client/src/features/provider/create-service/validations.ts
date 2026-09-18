@@ -1,3 +1,7 @@
+"use client";
+
+// ____ This schema should be compiled as client side component because we are using FileList and FileList doesnot exists on nextjs server side ...
+
 import { z } from "zod";
 import { days } from "@/shared/constants";
 
@@ -7,21 +11,6 @@ const AddServiceAPISchema = z
       .string("Name is required")
       .min(3, "Minimum 3 characters required")
       .max(100, "Maximum 100 characters allowed"),
-    image: z
-      .any() // Accept any input first
-      .refine((val) => val instanceof FileList, {
-        message: "Invalid file input",
-      })
-      .transform((val) => val[0]) // Extract first file
-      .pipe(
-        z
-          .file() // Now validate as File
-          .max(5 * 1024 * 1024, "Max file size is 5MB.")
-          .mime(
-            ["image/jpeg", "image/png", "image/webp"],
-            "Only .jpg, .png and .webp formats are supported.",
-          ),
-      ),
     user_id: z.string(),
     category: z.string(),
     description: z
@@ -56,8 +45,7 @@ const AddServiceAPISchema = z
 
     duration: z
       .number("Duration is required")
-      .positive("Duration must be positive")
-      .default(60),
+      .positive("Duration must be positive"),
 
     max_appointments_per_day: z
       .number("Must be a number")
@@ -65,45 +53,67 @@ const AddServiceAPISchema = z
 
     max_capacity: z.number("Must be a number").positive("Must be positive"),
 
-    buffer_time_min: z.coerce
+    buffer_time_min: z
       .number("Must be a number")
       .min(0, "Must be at least 0"),
 
-    cancellation_policy_hrs: z.coerce
+    cancellation_policy_hrs: z
       .number("Must be a number")
-      .min(0, "Must be at least 0")
+      .min(0, "Must be at least 0"),
   })
   .strict()
   .superRefine((data, ctx) => {
-    // parse start/end time into minutes
-    const [startHour, startMin] = data.start_time.split(":").map(Number);
-    const [endHour, endMin] = data.end_time.split(":").map(Number);
+    const toMinutes = (t: string) => {
+      const [h, m] = t.split(":").map(Number);
+      return h * 60 + m;
+    };
 
-    const totalAvailableMinutes =
-      endHour * 60 + endMin - (startHour * 60 + startMin);
+    const startMin = toMinutes(data.start_time);
+    const endMin = toMinutes(data.end_time);
+    const totalAvailableMinutes = endMin - startMin;
 
-    // if (totalAvailableMinutes <= 0) {
-    //   ctx.addIssue({
-    //     code: z.ZodIssueCode.custom,
-    //     message: "End time must be after start time",
-    //     path: ["end_time"],
-    //   });
-    //   return;
-    // }
+    // 1. End must be after start
+    if (totalAvailableMinutes <= 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "End time must be after start time",
+        path: ["end_time"],
+      });
+      return;
+    }
 
-    // total possible appointments in a day (if capacity is 1)
-    const maxPossibleAppointments =
-      Math.floor(totalAvailableMinutes / data.duration) * data.max_capacity;
+    // 2. A single appointment (plus buffer) must fit in the window
+    const slotMinutes = data.duration + data.buffer_time_min;
+    if (slotMinutes > totalAvailableMinutes) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `A single appointment (${data.duration} min + ${data.buffer_time_min} min buffer) does not fit in the available ${totalAvailableMinutes} min window.`,
+        path: ["duration"],
+      });
+      return;
+    }
+
+    // 3. Number of slots that fit (last buffer can be ignored)
+    //    n slots fit if: n * duration + (n - 1) * buffer <= totalAvailable
+    //    => n <= (totalAvailable + buffer) / (duration + buffer)
+    const slotsPerDay = Math.floor(
+      (totalAvailableMinutes + data.buffer_time_min) / slotMinutes
+    );
+
+    // 4. Total appointments possible given per-slot capacity
+    const maxPossibleAppointments = slotsPerDay * data.max_capacity;
 
     if (data.max_appointments_per_day > maxPossibleAppointments) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: `With ${data.max_capacity} capacity and ${data.duration} min per appointment, only ${maxPossibleAppointments} appointments fit in the available time. Please adjust your values.`,
+        message:
+          `With a ${data.duration} min duration, ${data.buffer_time_min} min buffer, ` +
+          `and capacity of ${data.max_capacity} per slot, only ${slotsPerDay} slot(s) ` +
+          `fit in the ${totalAvailableMinutes} min window — a maximum of ` +
+          `${maxPossibleAppointments} appointment(s) per day. Please adjust your values.`,
         path: ["max_appointments_per_day"],
       });
     }
   });
 
 export { AddServiceAPISchema };
-
-
