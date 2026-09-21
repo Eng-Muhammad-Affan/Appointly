@@ -53,9 +53,7 @@ const AddServiceAPISchema = z
 
     max_capacity: z.number("Must be a number").positive("Must be positive"),
 
-    buffer_time_min: z
-      .number("Must be a number")
-      .min(0, "Must be at least 0"),
+    buffer_time_min: z.number("Must be a number").min(0, "Must be at least 0"),
 
     cancellation_policy_hrs: z
       .number("Must be a number")
@@ -97,7 +95,7 @@ const AddServiceAPISchema = z
     //    n slots fit if: n * duration + (n - 1) * buffer <= totalAvailable
     //    => n <= (totalAvailable + buffer) / (duration + buffer)
     const slotsPerDay = Math.floor(
-      (totalAvailableMinutes + data.buffer_time_min) / slotMinutes
+      (totalAvailableMinutes + data.buffer_time_min) / slotMinutes,
     );
 
     // 4. Total appointments possible given per-slot capacity

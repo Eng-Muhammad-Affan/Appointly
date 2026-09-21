@@ -6,7 +6,6 @@ export const ContinueWithGoogleButton = () => {
     const { data, error } = await authClient.signIn.social({
       provider: "google",
       callbackURL: "/account",
-      
     });
     if (error) {
       return {
@@ -15,7 +14,7 @@ export const ContinueWithGoogleButton = () => {
       };
     }
     if (data.url) {
-      return window.location.href = data.url;
+      window.location.href = data.url;
     }
   };
 

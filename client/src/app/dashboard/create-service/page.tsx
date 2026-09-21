@@ -113,15 +113,13 @@ const ServiceCreationPage: React.FC = () => {
       setValue("user_id", data.user.id);
       setValue("currency", data.user.currency);
       return;
-    }
-    else if (!data && error) {
+    } else if (!data && error) {
       toast.error(error.message || "Provider not authenticated.");
-      return
+      return;
+    } else {
+      return;
     }
-    else {
-      return
-    }
-  }, [data, error]);
+  }, [data, error, setValue]);
 
   // Add highlight
   const handleAddHighlight = () => {
@@ -153,8 +151,8 @@ const ServiceCreationPage: React.FC = () => {
   const onSubmit = async (formData: FormValues) => {
     console.log(formData);
     if (!imageFile) {
-      setImageError("Upload an image")
-      return 
+      setImageError("Upload an image");
+      return;
     }
 
     try {
@@ -162,7 +160,7 @@ const ServiceCreationPage: React.FC = () => {
 
       // Append all other fields
       if (imageFile) {
-        data.append("image", imageFile)
+        data.append("image", imageFile);
       }
       data.append("name", formData.name);
       data.append("category", formData.category);
@@ -583,9 +581,7 @@ const ServiceCreationPage: React.FC = () => {
                     <div className="absolute top-[-10%] right-[-10%] w-32 h-32 bg-secondary opacity-20 rounded-full blur-2xl pointer-events-none" />
                   </div>
                   {imageError && (
-                    <p className="text-sm text-error mt-1">
-                      {imageError}
-                    </p>
+                    <p className="text-sm text-error mt-1">{imageError}</p>
                   )}
                 </div>
               </aside>
