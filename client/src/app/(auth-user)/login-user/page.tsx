@@ -47,8 +47,8 @@ const LoginPage = () => {
     }
 
     toast.success("Login successful!");
-    router.push("/account");
     await authClient.getSession();
+     router.push("/account");
   });
 
   return (

@@ -1,12 +1,12 @@
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 
 export const ContinueWithGoogleButton = () => {
   const loginWithGoogle = async () => {
     const { data, error } = await authClient.signIn.social({
       provider: "google",
       callbackURL: "/account",
+      
     });
     if (error) {
       return {
@@ -15,7 +15,7 @@ export const ContinueWithGoogleButton = () => {
       };
     }
     if (data.url) {
-      return redirect(data.url);
+      return window.location.href = data.url;
     }
   };
 
